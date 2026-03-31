@@ -4,544 +4,507 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Супра — Мотивы посещения, март 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --bg: #0f0e0d;
-    --surface: #1a1917;
-    --surface2: #222120;
-    --border: #2e2d2b;
-    --text: #e8e6e1;
-    --muted: #8a8885;
-    --faint: #4a4946;
-    --red: #c0392b;
-    --green: #27ae60;
-    --yellow: #e67e22;
-    --accent: #e8b84b;
-    --font: 'Inter', system-ui, sans-serif;
-  }
-  [data-theme="light"] {
-    --bg: #f7f6f2;
-    --surface: #ffffff;
-    --surface2: #f0ede8;
-    --border: #dcd9d5;
-    --text: #28251d;
-    --muted: #7a7974;
-    --faint: #bab9b4;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100dvh;
-  }
-  /* HEADER */
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  .header-title { font-size: 16px; font-weight: 600; color: var(--accent); letter-spacing: 0.02em; }
-  .header-subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
-  .theme-toggle {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 12px;
-    color: var(--text);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.18s ease;
-  }
-  .theme-toggle:hover { background: var(--surface2); }
+/* === TOKENS === */
+:root,[data-theme="light"]{
+  --bg:#f7f6f2;--surface:#ffffff;--surface2:#f0ede8;--surface3:#e8e5df;
+  --border:#dcd9d5;--divider:#e5e3de;
+  --text:#28251d;--muted:#7a7974;--faint:#bab9b4;
+  --accent:#01696f;--accent-hover:#0c4e54;
+  --green:#2d7a2d;--red:#b8280a;--yellow:#c07000;--neutral:#6b6b6b;
+  --green-bg:rgba(45,122,45,0.10);--red-bg:rgba(184,40,10,0.10);--yellow-bg:rgba(192,112,0,0.10);
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 12px rgba(0,0,0,0.04);
+  --radius:10px;--radius-sm:6px;
+}
+[data-theme="dark"]{
+  --bg:#0f0e0d;--surface:#1a1917;--surface2:#222120;--surface3:#2a2927;
+  --border:#2e2d2b;--divider:#252422;
+  --text:#cdccca;--muted:#797876;--faint:#4a4946;
+  --accent:#4f98a3;--accent-hover:#62adb8;
+  --green:#5db35d;--red:#e05c3a;--yellow:#d4900a;--neutral:#888;
+  --green-bg:rgba(93,179,93,0.12);--red-bg:rgba(224,92,58,0.12);--yellow-bg:rgba(212,144,10,0.12);
+  --shadow:0 1px 3px rgba(0,0,0,0.25),0 4px 12px rgba(0,0,0,0.2);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:none}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  font-size:14px;line-height:1.6;min-height:100dvh;
+  transition:background 0.2s,color 0.2s;
+}
+img,svg{display:block;max-width:100%}
 
-  /* LAYOUT */
-  .container { max-width: 1200px; margin: 0 auto; padding: 24px 24px 48px; }
+/* HEADER */
+.header{
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);border-bottom:1px solid var(--border);
+  padding:12px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.hd-left{display:flex;flex-direction:column;gap:2px}
+.hd-title{font-size:15px;font-weight:700;color:var(--accent);letter-spacing:0.01em}
+.hd-sub{font-size:12px;color:var(--muted)}
+.theme-btn{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:5px 12px;
+  color:var(--text);font-size:12px;cursor:pointer;
+  transition:background 0.18s;
+}
+.theme-btn:hover{background:var(--surface2)}
 
-  /* SECTION */
-  .section { margin-bottom: 48px; }
-  .section-title {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
+/* LAYOUT */
+.wrap{max-width:1200px;margin:0 auto;padding:24px 24px 64px}
 
-  /* SUMMARY CARDS */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-  .summary-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 18px;
-  }
-  .summary-card .rest-name { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-  .summary-card .rest-guests { font-size: 22px; font-weight: 700; color: var(--text); }
-  .summary-card .rest-revenue { font-size: 16px; font-weight: 600; color: var(--accent); margin-top: 2px; }
-  .summary-card .rest-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  .delta-pos { color: #4caf50; }
-  .delta-neg { color: #f44336; }
-  .delta-neu { color: var(--muted); }
+/* SECTION */
+.section{margin-bottom:40px}
+.section-head{
+  font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:16px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
 
-  /* RESTAURANT BLOCK */
-  .rest-block {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-  .rest-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 4px;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .rest-block-title { font-size: 17px; font-weight: 700; }
-  .rest-badge {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.05em;
-  }
-  .badge-green { background: rgba(39,174,96,0.15); color: #4caf50; border: 1px solid rgba(39,174,96,0.3); }
-  .badge-red { background: rgba(192,57,43,0.15); color: #f44336; border: 1px solid rgba(192,57,43,0.3); }
-  .badge-yellow { background: rgba(230,126,34,0.15); color: #e67e22; border: 1px solid rgba(230,126,34,0.3); }
-  .rest-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+/* SUMMARY CARDS */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:32px}
+.sum-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px 16px;
+  box-shadow:var(--shadow);
+}
+.sum-name{font-size:13px;font-weight:600;margin-bottom:8px}
+.sum-guests{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.sum-revenue{font-size:15px;font-weight:600;color:var(--accent);margin-top:2px;font-variant-numeric:tabular-nums}
+.sum-label{font-size:11px;color:var(--muted);margin-top:2px}
+.sum-deltas{font-size:11px;margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
 
-  /* TABLE */
-  .table-wrap { overflow-x: auto; margin-bottom: 20px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th {
-    text-align: left;
-    padding: 8px 12px;
-    background: var(--surface2);
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-  }
-  td {
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--border);
-    white-space: nowrap;
-    vertical-align: middle;
-  }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--surface2); }
-  .motiv-name { font-weight: 600; color: var(--text); }
-  .motiv-sub { font-size: 11px; color: var(--muted); display: block; font-weight: 400; }
+/* DELTA CHIPS */
+.d-pos{color:var(--green);font-weight:600}
+.d-neg{color:var(--red);font-weight:600}
+.d-neu{color:var(--neutral)}
 
-  /* CHIPS */
-  .chip {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-  }
-  .chip-ok { background: rgba(76,175,80,0.15); color: #4caf50; }
-  .chip-warn { background: rgba(255,193,7,0.12); color: #ffc107; }
-  .chip-bad { background: rgba(244,67,54,0.15); color: #f44336; }
-  .chip-neu { background: rgba(138,136,133,0.15); color: var(--muted); }
+/* RESTAURANT BLOCK */
+.rest-block{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;margin-bottom:20px;
+  box-shadow:var(--shadow);
+}
+.rb-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin-bottom:4px;
+}
+.rb-title{font-size:16px;font-weight:700}
+.rb-badge{
+  font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
+  letter-spacing:0.06em;text-transform:uppercase;
+}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.badge-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.rb-desc{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5}
 
-  /* CHARTS ROW */
-  .charts-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 20px;
-  }
-  @media (max-width: 640px) { .charts-row { grid-template-columns: 1fr; } }
-  .chart-box {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-  }
-  .chart-box-title { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
-  .chart-box canvas { max-height: 180px; }
+/* TABLE */
+.tbl-wrap{overflow-x:auto;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{
+  text-align:left;padding:7px 10px;
+  background:var(--surface2);color:var(--muted);
+  font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+td{
+  padding:8px 10px;border-bottom:1px solid var(--divider);
+  white-space:nowrap;vertical-align:middle;
+  font-variant-numeric:tabular-nums;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+.mn{font-weight:600}
+.ms{font-size:11px;color:var(--muted);display:block;font-weight:400}
 
-  /* INSIGHTS */
-  .insights { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; margin-top: 16px; }
-  .insight-card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-  .insight-card .icon { font-size: 18px; margin-bottom: 6px; }
-  .insight-card .label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .insight-card .desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+/* STATUS CHIP */
+.chip{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600}
+.chip-ok{background:var(--green-bg);color:var(--green)}
+.chip-warn{background:var(--yellow-bg);color:var(--yellow)}
+.chip-bad{background:var(--red-bg);color:var(--red)}
+.chip-neu{background:rgba(107,107,107,0.10);color:var(--neutral)}
 
-  /* HEATMAP */
-  .heatmap-table td.heat-pos { background: rgba(76,175,80,0.18); color: #4caf50; font-weight: 700; }
-  .heatmap-table td.heat-neg { background: rgba(244,67,54,0.15); color: #f44336; font-weight: 700; }
-  .heatmap-table td.heat-zero { background: var(--surface2); color: var(--muted); }
-  .heatmap-legend { font-size: 12px; color: var(--muted); margin-top: 8px; }
+/* CHARTS */
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+@media(max-width:600px){.charts-row{grid-template-columns:1fr}}
+.chart-box{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px;
+}
+.chart-title{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.chart-box canvas{max-height:180px}
 
-  @media (max-width: 768px) {
-    .container { padding: 16px 16px 40px; }
-    .rest-block { padding: 16px; }
-    .header { padding: 10px 16px; }
-  }
+/* INSIGHTS */
+.insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:14px}
+.insight{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:12px 14px;
+}
+.insight .ico{font-size:16px;margin-bottom:5px}
+.insight .lbl{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px}
+.insight .txt{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* HEATMAP */
+.hmap td.hp{background:var(--green-bg);color:var(--green);font-weight:700}
+.hmap td.hn{background:var(--red-bg);color:var(--red);font-weight:700}
+.hmap td.hz{background:var(--surface2);color:var(--muted)}
+
+@media(max-width:768px){
+  .wrap{padding:16px 16px 48px}
+  .header{padding:10px 16px}
+  .rest-block{padding:14px}
+  .summary-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+}
 </style>
 </head>
 <body>
 
 <header class="header">
-  <div>
-    <div class="header-title">🍷 СУПРА — Мотивы посещения</div>
-    <div class="header-subtitle">Март 2026 · Сеть из 4 ресторанов</div>
+  <div class="hd-left">
+    <div class="hd-title">🍷 СУПРА — Мотивы посещения</div>
+    <div class="hd-sub">Март 2026 · Сеть из 4 ресторанов</div>
   </div>
-  <button class="theme-toggle" data-theme-toggle aria-label="Переключить тему">☀️ Светлая</button>
+  <button class="theme-btn" data-theme-toggle aria-label="Тема">☀️ Светлая</button>
 </header>
 
-<div class="container">
+<div class="wrap">
 
-  <!-- SUMMARY -->
-  <div class="section">
-    <div class="section-title">Общий трафик и выручка по ресторанам</div>
-    <div class="summary-grid">
-      <div class="summary-card">
-        <div class="rest-name">🟢 Центр</div>
-        <div class="rest-guests">15 905</div>
-        <div class="rest-revenue">31 868 846 ₽</div>
-        <div class="rest-meta">гостей · выручка за период</div>
-        <div class="rest-meta"><span class="delta-neg">−1%</span> гости &nbsp;<span class="delta-pos">+1%</span> выручка &nbsp;<span class="delta-pos">+9%</span> к плану</div>
+<!-- SUMMARY -->
+<div class="section">
+  <div class="section-head">Общий трафик и выручка по ресторанам</div>
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="sum-name">🟢 Центр</div>
+      <div class="sum-guests">15 905</div>
+      <div class="sum-revenue">31 868 846 ₽</div>
+      <div class="sum-label">гостей · выручка за период</div>
+      <div class="sum-deltas">
+        <span class="d-neg">−1% гости</span>
+        <span class="d-pos">+1% выручка</span>
+        <span class="d-pos">+9% к плану</span>
       </div>
-      <div class="summary-card">
-        <div class="rest-name">🔴 Романи</div>
-        <div class="rest-guests">13 782</div>
-        <div class="rest-revenue">26 811 370 ₽</div>
-        <div class="rest-meta">гостей · выручка за период</div>
-        <div class="rest-meta"><span class="delta-neg">−6%</span> гости &nbsp;<span class="delta-neg">−5%</span> выручка &nbsp;<span class="delta-neg">−8%</span> к плану</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-name">🔴 Романи</div>
+      <div class="sum-guests">13 782</div>
+      <div class="sum-revenue">26 811 370 ₽</div>
+      <div class="sum-label">гостей · выручка за период</div>
+      <div class="sum-deltas">
+        <span class="d-neg">−6% гости</span>
+        <span class="d-neg">−5% выручка</span>
+        <span class="d-neg">−8% к плану</span>
       </div>
-      <div class="summary-card">
-        <div class="rest-name">🟡 Меоре</div>
-        <div class="rest-guests">11 477</div>
-        <div class="rest-revenue">23 784 196 ₽</div>
-        <div class="rest-meta">гостей · выручка за период</div>
-        <div class="rest-meta"><span class="delta-neg">−4%</span> гости &nbsp;<span class="delta-neg">−8%</span> выручка &nbsp;<span class="delta-neg">−7%</span> к плану</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-name">🟡 Меоре</div>
+      <div class="sum-guests">11 477</div>
+      <div class="sum-revenue">23 784 196 ₽</div>
+      <div class="sum-label">гостей · выручка за период</div>
+      <div class="sum-deltas">
+        <span class="d-neg">−4% гости</span>
+        <span class="d-neg">−8% выручка</span>
+        <span class="d-neg">−7% к плану</span>
       </div>
-      <div class="summary-card">
-        <div class="rest-name">🟡 Диди</div>
-        <div class="rest-guests">13 940</div>
-        <div class="rest-revenue">28 733 878 ₽</div>
-        <div class="rest-meta">гостей · выручка за период</div>
-        <div class="rest-meta"><span class="delta-neg">−1%</span> гости &nbsp;<span class="delta-neg">−6%</span> выручка &nbsp;<span class="delta-neg">−10%</span> к плану</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-name">🟡 Диди</div>
+      <div class="sum-guests">13 940</div>
+      <div class="sum-revenue">28 733 878 ₽</div>
+      <div class="sum-label">гостей · выручка за период</div>
+      <div class="sum-deltas">
+        <span class="d-neg">−1% гости</span>
+        <span class="d-neg">−6% выручка</span>
+        <span class="d-neg">−10% к плану</span>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ЦЕНТР -->
-  <div class="section">
-    <div class="section-title">Центр — разбивка по мотивам</div>
-    <div class="rest-block">
-      <div class="rest-header">
-        <div class="rest-block-title">🟢 Центр</div>
-        <span class="rest-badge badge-green">ВЫШЕ ПЛАНА</span>
-      </div>
-      <div class="rest-desc">Лидер сети · выручка +1% к году · вечера выходных единственные в плюсе по всей сети</div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>4 373</td><td class="delta-neg">−4% (−196)</td><td class="delta-neg">+5%</td><td><span class="chip chip-warn">⚠ Просадка</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>3 372</td><td class="delta-pos">+2% (+55)</td><td class="delta-pos">+14%</td><td><span class="chip chip-ok">✓ Рост</span></td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>5 598</td><td class="delta-neg">−1% (−47)</td><td class="delta-pos">+12%</td><td><span class="chip chip-ok">✓ Перевыполнение</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>2 562</td><td class="delta-pos">+3% (+70)</td><td class="delta-pos">+8%</td><td><span class="chip chip-ok">✓ Точка роста</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>7 820 734 ₽</td><td class="delta-neg">−4% (−330K)</td><td class="delta-neg">−6%</td><td>1 789 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>6 087 933 ₽</td><td class="delta-neg">−2% (−104K)</td><td class="delta-neg">−4%</td><td>1 806 ₽</td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>12 119 319 ₽</td><td class="delta-pos">+5% (+550K)</td><td class="delta-pos">+2%</td><td>2 165 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>5 840 860 ₽</td><td class="delta-pos">+6% (+306K)</td><td class="delta-pos">+3%</td><td>2 280 ₽</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="charts-row">
-        <div class="chart-box"><div class="chart-box-title">Структура выручки по мотивам</div><canvas id="c_center_pie"></canvas></div>
-        <div class="chart-box"><div class="chart-box-title">Динамика выручки к прошлому году, %</div><canvas id="c_center_bar"></canvas></div>
-      </div>
-
-      <div class="insights">
-        <div class="insight-card"><div class="icon">✅</div><div class="label">Ужины генерируют 56% выручки</div><div class="desc">Вечерний ужин растёт и к году (+5–6%), и перевыполняет план. Высокий чек: 2 165–2 280 ₽/гость.</div></div>
-        <div class="insight-card"><div class="icon">⚠️</div><div class="label">Обеды теряют выручку</div><div class="desc">Будний обед −4% к году, −6% к плану. Низкий чек (1 789 ₽) + падение трафика = двойная проблема.</div></div>
-        <div class="insight-card"><div class="icon">📊</div><div class="label">Чек вечером выше на 27%</div><div class="desc">Разница чека обед vs ужин: 1 800 → 2 200 ₽. Вечерний гость выгоднее — правильный приоритет.</div></div>
-      </div>
+<!-- ЦЕНТР -->
+<div class="section">
+  <div class="section-head">Центр — разбивка по мотивам</div>
+  <div class="rest-block">
+    <div class="rb-header">
+      <div class="rb-title">🟢 Центр</div>
+      <span class="rb-badge badge-green">Выше плана</span>
+    </div>
+    <div class="rb-desc">Лидер сети · выручка +1% к году · вечера выходных единственные в плюсе по всей сети</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>4 373</td><td class="d-neg">−4% (−196)</td><td class="d-pos">+5%</td><td><span class="chip chip-warn">⚠ Просадка</span></td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>3 372</td><td class="d-pos">+2% (+55)</td><td class="d-pos">+14%</td><td><span class="chip chip-ok">✓ Рост</span></td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>5 598</td><td class="d-neg">−1% (−47)</td><td class="d-pos">+12%</td><td><span class="chip chip-ok">✓ Перевыполнение</span></td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>2 562</td><td class="d-pos">+3% (+70)</td><td class="d-pos">+8%</td><td><span class="chip chip-ok">✓ Точка роста</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>7 820 734 ₽</td><td class="d-neg">−4% (−330K)</td><td class="d-neg">−6%</td><td>1 789 ₽</td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>6 087 933 ₽</td><td class="d-neg">−2% (−104K)</td><td class="d-neg">−4%</td><td>1 806 ₽</td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>12 119 319 ₽</td><td class="d-pos">+5% (+550K)</td><td class="d-pos">+2%</td><td>2 165 ₽</td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>5 840 860 ₽</td><td class="d-pos">+6% (+306K)</td><td class="d-pos">+3%</td><td>2 280 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charts-row">
+      <div class="chart-box"><div class="chart-title">Структура выручки по мотивам</div><canvas id="chart-center-pie"></canvas></div>
+      <div class="chart-box"><div class="chart-title">Динамика выручки к прошлому году, %</div><canvas id="chart-center-delta"></canvas></div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="ico">✅</div><div class="lbl">Ужины генерируют 56% выручки</div><div class="txt">Вечерний ужин растёт и к году (+5–6%), и перевыполняет план. Высокий чек: 2 165–2 280 ₽/гость.</div></div>
+      <div class="insight"><div class="ico">⚠️</div><div class="lbl">Обеды теряют выручку</div><div class="txt">Будний обед −4% к году, −6% к плану. Низкий чек (1 789 ₽) + падение трафика = двойная проблема.</div></div>
+      <div class="insight"><div class="ico">📊</div><div class="lbl">Чек вечером выше на 27%</div><div class="txt">Разница чека обед vs ужин: 1 800 → 2 200 ₽. Вечерний гость выгоднее — правильный приоритет.</div></div>
     </div>
   </div>
+</div>
 
-  <!-- РОМАНИ -->
-  <div class="section">
-    <div class="section-title">Романи — разбивка по мотивам</div>
-    <div class="rest-block">
-      <div class="rest-header">
-        <div class="rest-block-title">🔴 Романи</div>
-        <span class="rest-badge badge-red">ТРЕБУЕТ ВНИМАНИЯ</span>
-      </div>
-      <div class="rest-desc">Худший результат сети · −5% выручка, −8% к плану · провал выходного обеда −17% к плану</div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>3 770</td><td class="delta-neu">0%</td><td class="delta-pos">+9%</td><td><span class="chip chip-ok">✓ Держится</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>3 136</td><td class="delta-neg">−11% (−403)</td><td class="delta-neg">−6%</td><td><span class="chip chip-bad">🔴 Критично</span></td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>4 381</td><td class="delta-neg">−2% (−88)</td><td class="delta-neg">−1%</td><td><span class="chip chip-neu">→ Стабильно</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>2 495</td><td class="delta-neg">−13% (−371)</td><td class="delta-pos">+5%</td><td><span class="chip chip-bad">🔴 Макс. падение</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>6 167 903 ₽</td><td class="delta-neg">−5% (−316K)</td><td class="delta-neg">−6%</td><td>1 636 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>5 804 616 ₽</td><td class="delta-neg">−12% (−818K)</td><td class="delta-neg">−17%</td><td>1 851 ₽</td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>8 994 715 ₽</td><td class="delta-pos">+1% (+98K)</td><td class="delta-neg">−10%</td><td>2 053 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>5 844 136 ₽</td><td class="delta-neg">−5% (−277K)</td><td class="delta-pos">+7%</td><td>2 342 ₽</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="charts-row">
-        <div class="chart-box"><div class="chart-box-title">Структура выручки по мотивам</div><canvas id="c_romani_pie"></canvas></div>
-        <div class="chart-box"><div class="chart-box-title">Динамика выручки к прошлому году, %</div><canvas id="c_romani_bar"></canvas></div>
-      </div>
-
-      <div class="insights">
-        <div class="insight-card"><div class="icon">🚨</div><div class="label">Выходной обед: −12% выручки, −17% к плану</div><div class="desc">−818K рублей к году только по этому мотиву. Крупнейшая потеря среди одного мотива в сети.</div></div>
-        <div class="insight-card"><div class="icon">💡</div><div class="label">Высокий чек в выходной вечер</div><div class="desc">Выходной ужин — 2 342 ₽/гость, самый высокий чек в Романи. Теряем трафик (−13%) при высоком потенциале.</div></div>
-        <div class="insight-card"><div class="icon">💪</div><div class="label">Будний ужин держит выручку</div><div class="desc">+1% к году. Это «якорный» мотив — 34% всей выручки. Нельзя его ронять.</div></div>
-      </div>
+<!-- РОМАНИ -->
+<div class="section">
+  <div class="section-head">Романи — разбивка по мотивам</div>
+  <div class="rest-block">
+    <div class="rb-header">
+      <div class="rb-title">🔴 Романи</div>
+      <span class="rb-badge badge-red">Требует внимания</span>
+    </div>
+    <div class="rb-desc">Худший результат сети · −5% выручка, −8% к плану · провал выходного обеда −17% к плану</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>3 770</td><td class="d-neu">0%</td><td class="d-pos">+9%</td><td><span class="chip chip-ok">✓ Держится</span></td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>3 136</td><td class="d-neg">−11% (−403)</td><td class="d-neg">−6%</td><td><span class="chip chip-bad">🔴 Критично</span></td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>4 381</td><td class="d-neg">−2% (−88)</td><td class="d-neg">−1%</td><td><span class="chip chip-neu">→ Стабильно</span></td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>2 495</td><td class="d-neg">−13% (−371)</td><td class="d-pos">+5%</td><td><span class="chip chip-bad">🔴 Макс. падение</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>6 167 903 ₽</td><td class="d-neg">−5% (−316K)</td><td class="d-neg">−6%</td><td>1 636 ₽</td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>5 804 616 ₽</td><td class="d-neg">−12% (−818K)</td><td class="d-neg">−17%</td><td>1 851 ₽</td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>8 994 715 ₽</td><td class="d-pos">+1% (+98K)</td><td class="d-neg">−10%</td><td>2 053 ₽</td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>5 844 136 ₽</td><td class="d-neg">−5% (−277K)</td><td class="d-pos">+7%</td><td>2 342 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charts-row">
+      <div class="chart-box"><div class="chart-title">Структура выручки по мотивам</div><canvas id="chart-romani-pie"></canvas></div>
+      <div class="chart-box"><div class="chart-title">Динамика выручки к прошлому году, %</div><canvas id="chart-romani-delta"></canvas></div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="ico">🚨</div><div class="lbl">Выходной обед: −12% выручки, −17% к плану</div><div class="txt">−818K рублей к году только по этому мотиву. Крупнейшая потеря среди одного мотива в сети.</div></div>
+      <div class="insight"><div class="ico">💡</div><div class="lbl">Высокий чек в выходной вечер</div><div class="txt">Выходной ужин — 2 342 ₽/гость, самый высокий чек в Романи. Теряем трафик (−13%) при высоком потенциале.</div></div>
+      <div class="insight"><div class="ico">💪</div><div class="lbl">Будний ужин держит выручку</div><div class="txt">+1% к году. Это «якорный» мотив — 34% всей выручки. Нельзя его ронять.</div></div>
     </div>
   </div>
+</div>
 
-  <!-- МЕОРЕ -->
-  <div class="section">
-    <div class="section-title">Меоре — разбивка по мотивам</div>
-    <div class="rest-block">
-      <div class="rest-header">
-        <div class="rest-block-title">🟡 Меоре</div>
-        <span class="rest-badge badge-yellow">СМЕШАННЫЙ</span>
-      </div>
-      <div class="rest-desc">−8% выручка к году · выходной обед −12% выручки −17% к плану · будний обед растёт</div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>2 688</td><td class="delta-pos">+3% (+84)</td><td class="delta-pos">+21%</td><td><span class="chip chip-ok">✓ Точка силы</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>2 773</td><td class="delta-neg">−9% (−277)</td><td class="delta-neu">0%</td><td><span class="chip chip-bad">🔴 Провал к году</span></td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>3 820</td><td class="delta-neg">−7% (−299)</td><td class="delta-pos">+4%</td><td><span class="chip chip-warn">⚠ Тревожный</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>2 196</td><td class="delta-neu">0%</td><td class="delta-pos">+17%</td><td><span class="chip chip-ok">✓ Стабильно</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>4 958 693 ₽</td><td class="delta-neg">−4% (−222K)</td><td class="delta-pos">+2%</td><td>1 845 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>5 576 389 ₽</td><td class="delta-neg">−12% (−778K)</td><td class="delta-neg">−17%</td><td>2 011 ₽</td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>8 139 002 ₽</td><td class="delta-neg">−9% (−764K)</td><td class="delta-neg">−13%</td><td>2 130 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>5 110 111 ₽</td><td class="delta-neg">−5% (−260K)</td><td class="delta-pos">+4%</td><td>2 327 ₽</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="charts-row">
-        <div class="chart-box"><div class="chart-box-title">Структура выручки по мотивам</div><canvas id="c_meore_pie"></canvas></div>
-        <div class="chart-box"><div class="chart-box-title">Динамика выручки к прошлому году, %</div><canvas id="c_meore_bar"></canvas></div>
-      </div>
-
-      <div class="insights">
-        <div class="insight-card"><div class="icon">🚨</div><div class="label">Будний ужин: −9% выручки (−764K)</div><div class="desc">34% выручки ресторана — якорный мотив падает. Потеря выручки > потеря гостей = снижается чек.</div></div>
-        <div class="insight-card"><div class="icon">📉</div><div class="label">Выходной обед −17% к плану</div><div class="desc">−778K рублей к году. Вместе с Романи — системная болезнь выходного обеда по всей сети.</div></div>
-        <div class="insight-card"><div class="icon">💡</div><div class="label">Чек выходного ужина самый высокий</div><div class="desc">2 327 ₽/гость при нулевой динамике гостей. Сохранить этот мотив — приоритет.</div></div>
-      </div>
+<!-- МЕОРЕ -->
+<div class="section">
+  <div class="section-head">Меоре — разбивка по мотивам</div>
+  <div class="rest-block">
+    <div class="rb-header">
+      <div class="rb-title">🟡 Меоре</div>
+      <span class="rb-badge badge-yellow">Смешанный</span>
+    </div>
+    <div class="rb-desc">−8% выручка к году · выходной обед −12% выручки −17% к плану · будний обед растёт</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>2 688</td><td class="d-pos">+3% (+84)</td><td class="d-pos">+21%</td><td><span class="chip chip-ok">✓ Точка силы</span></td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>2 773</td><td class="d-neg">−9% (−277)</td><td class="d-neu">0%</td><td><span class="chip chip-bad">🔴 Провал к году</span></td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>3 820</td><td class="d-neg">−7% (−299)</td><td class="d-pos">+4%</td><td><span class="chip chip-warn">⚠ Тревожный</span></td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>2 196</td><td class="d-neu">0%</td><td class="d-pos">+17%</td><td><span class="chip chip-ok">✓ Стабильно</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>4 958 693 ₽</td><td class="d-neg">−4% (−222K)</td><td class="d-pos">+2%</td><td>1 845 ₽</td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>5 576 389 ₽</td><td class="d-neg">−12% (−778K)</td><td class="d-neg">−17%</td><td>2 011 ₽</td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>8 139 002 ₽</td><td class="d-neg">−9% (−764K)</td><td class="d-neg">−13%</td><td>2 130 ₽</td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>5 110 111 ₽</td><td class="d-neg">−5% (−260K)</td><td class="d-pos">+4%</td><td>2 327 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charts-row">
+      <div class="chart-box"><div class="chart-title">Структура выручки по мотивам</div><canvas id="chart-meore-pie"></canvas></div>
+      <div class="chart-box"><div class="chart-title">Динамика выручки к прошлому году, %</div><canvas id="chart-meore-delta"></canvas></div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="ico">🚨</div><div class="lbl">Будний ужин: −9% выручки (−764K)</div><div class="txt">34% выручки ресторана — якорный мотив падает. Потеря выручки > потеря гостей = снижается чек.</div></div>
+      <div class="insight"><div class="ico">📉</div><div class="lbl">Выходной обед −17% к плану</div><div class="txt">−778K рублей к году. Вместе с Романи — системная болезнь выходного обеда по всей сети.</div></div>
+      <div class="insight"><div class="ico">💡</div><div class="lbl">Чек выходного ужина самый высокий</div><div class="txt">2 327 ₽/гость при нулевой динамике гостей. Сохранить этот мотив — приоритет.</div></div>
     </div>
   </div>
+</div>
 
-  <!-- ДИДИ -->
-  <div class="section">
-    <div class="section-title">Диди — разбивка по мотивам</div>
-    <div class="rest-block">
-      <div class="rest-header">
-        <div class="rest-block-title">🟡 Диди</div>
-        <span class="rest-badge badge-yellow">СМЕШАННЫЙ</span>
-      </div>
-      <div class="rest-desc">−6% выручка к году · −10% к плану · вечер выходных −18% выручки к году</div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>3 702</td><td class="delta-pos">+2% (+65)</td><td class="delta-neg">−8%</td><td><span class="chip chip-warn">⚠ Рост/план↓</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>3 621</td><td class="delta-pos">+1% (+41)</td><td class="delta-pos">+7%</td><td><span class="chip chip-ok">✓ Точка роста</span></td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>4 316</td><td class="delta-neg">−1% (−52)</td><td class="delta-neg">−13%</td><td><span class="chip chip-bad">🔴 Провал к плану</span></td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>2 301</td><td class="delta-neg">−9% (−239)</td><td class="delta-pos">+4%</td><td><span class="chip chip-bad">🔴 Падение к году</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
-          <tbody>
-            <tr><td><span class="motiv-name">Будний обед</span><span class="motiv-sub">Пн–Пт 07–17</span></td><td>6 996 817 ₽</td><td class="delta-neg">−2% (−131K)</td><td class="delta-neg">−11%</td><td>1 890 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной обед</span><span class="motiv-sub">Сб–Вс 07–17</span></td><td>7 325 812 ₽</td><td class="delta-neg">−1% (−107K)</td><td class="delta-pos">+3%</td><td>2 023 ₽</td></tr>
-            <tr><td><span class="motiv-name">Будний ужин</span><span class="motiv-sub">Вс–Чт 17–07</span></td><td>9 126 273 ₽</td><td class="delta-neg">−6% (−561K)</td><td class="delta-neg">−18%</td><td>2 115 ₽</td></tr>
-            <tr><td><span class="motiv-name">Выходной ужин</span><span class="motiv-sub">Пт–Сб 17–07</span></td><td>5 284 976 ₽</td><td class="delta-neg">−18% (−1 168K)</td><td class="delta-neg">−6%</td><td>2 297 ₽</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="charts-row">
-        <div class="chart-box"><div class="chart-box-title">Структура выручки по мотивам</div><canvas id="c_didi_pie"></canvas></div>
-        <div class="chart-box"><div class="chart-box-title">Динамика выручки к прошлому году, %</div><canvas id="c_didi_bar"></canvas></div>
-      </div>
-
-      <div class="insights">
-        <div class="insight-card"><div class="icon">🚨</div><div class="label">Выходной ужин: −18% выручки (−1.17M)</div><div class="desc">Крупнейшая потеря по одному мотиву в сети. При высоком чеке (2 297 ₽) потеря трафика −9% бьёт сильнее.</div></div>
-        <div class="insight-card"><div class="icon">📉</div><div class="label">Будний ужин: −18% к плану</div><div class="desc">−561K к году. Гостей почти не потеряли (−1%), но выручка падает — снижается чек или глубина заказа.</div></div>
-        <div class="insight-card"><div class="icon">☀️</div><div class="label">Дневной трафик устойчив</div><div class="desc">Выходной обед +3% к плану. 50% выручки до 17:00 — редкий паттерн. Диди — дневной ресторан.</div></div>
-      </div>
+<!-- ДИДИ -->
+<div class="section">
+  <div class="section-head">Диди — разбивка по мотивам</div>
+  <div class="rest-block">
+    <div class="rb-header">
+      <div class="rb-title">🟡 Диди</div>
+      <span class="rb-badge badge-yellow">Смешанный</span>
+    </div>
+    <div class="rb-desc">−6% выручка к году · −10% к плану · вечер выходных −18% выручки к году</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Гостей</th><th>Δ к году</th><th>Δ к плану</th><th>Оценка</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>3 702</td><td class="d-pos">+2% (+65)</td><td class="d-neg">−8%</td><td><span class="chip chip-warn">⚠ Рост/план↓</span></td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>3 621</td><td class="d-pos">+1% (+41)</td><td class="d-pos">+7%</td><td><span class="chip chip-ok">✓ Точка роста</span></td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>4 316</td><td class="d-neg">−1% (−52)</td><td class="d-neg">−13%</td><td><span class="chip chip-bad">🔴 Провал к плану</span></td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>2 301</td><td class="d-neg">−9% (−239)</td><td class="d-pos">+4%</td><td><span class="chip chip-bad">🔴 Падение к году</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Мотив</th><th>Выручка</th><th>Δ к году</th><th>Δ к плану</th><th>Чек/гость</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mn">Будний обед</span><span class="ms">Пн–Пт 07–17</span></td><td>6 996 817 ₽</td><td class="d-neg">−2% (−131K)</td><td class="d-neg">−11%</td><td>1 890 ₽</td></tr>
+          <tr><td><span class="mn">Выходной обед</span><span class="ms">Сб–Вс 07–17</span></td><td>7 325 812 ₽</td><td class="d-neg">−1% (−107K)</td><td class="d-pos">+3%</td><td>2 023 ₽</td></tr>
+          <tr><td><span class="mn">Будний ужин</span><span class="ms">Вс–Чт 17–07</span></td><td>9 126 273 ₽</td><td class="d-neg">−6% (−561K)</td><td class="d-neg">−18%</td><td>2 115 ₽</td></tr>
+          <tr><td><span class="mn">Выходной ужин</span><span class="ms">Пт–Сб 17–07</span></td><td>5 284 976 ₽</td><td class="d-neg">−18% (−1 168K)</td><td class="d-neg">−6%</td><td>2 297 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charts-row">
+      <div class="chart-box"><div class="chart-title">Структура выручки по мотивам</div><canvas id="chart-didi-pie"></canvas></div>
+      <div class="chart-box"><div class="chart-title">Динамика выручки к прошлому году, %</div><canvas id="chart-didi-delta"></canvas></div>
+    </div>
+    <div class="insights">
+      <div class="insight"><div class="ico">🚨</div><div class="lbl">Выходной ужин: −18% выручки (−1.17M)</div><div class="txt">Крупнейшая потеря по одному мотиву в сети. При высоком чеке (2 297 ₽) потеря трафика −9% бьёт сильнее.</div></div>
+      <div class="insight"><div class="ico">📉</div><div class="lbl">Будний ужин: −18% к плану</div><div class="txt">−561K к году. Гостей почти не потеряли (−1%), но выручка падает — снижается чек или глубина заказа.</div></div>
+      <div class="insight"><div class="ico">☀️</div><div class="lbl">Дневной трафик устойчив</div><div class="txt">Выходной обед +3% к плану. 50% выручки генерируется до 17:00 — редкий паттерн. Диди — дневной ресторан.</div></div>
     </div>
   </div>
+</div>
 
-  <!-- СРАВНЕНИЕ СЕТИ -->
-  <div class="section">
-    <div class="section-title">Сравнение сети — выручка и гости по мотивам</div>
-    <div class="rest-block">
-      <div class="rest-desc" style="margin-bottom:16px;">Тепловая карта: динамика выручки к прошлому году · <span style="color:#f44336">Красное</span> — падение · <span style="color:#4caf50">Зелёное</span> — рост</div>
-
-      <div class="table-wrap">
-        <table class="heatmap-table">
-          <thead><tr><th>Ресторан</th><th>Итого гостей</th><th>Будний обед</th><th>Выходной обед</th><th>Будний ужин</th><th>Выходной ужин</th></tr></thead>
-          <tbody>
-            <tr><td>🟢 Центр</td><td>15 905</td><td class="heat-neg">−4%</td><td class="heat-pos">+2%</td><td class="heat-neg">−1%</td><td class="heat-pos">+3%</td></tr>
-            <tr><td>🔴 Романи</td><td>13 782</td><td class="heat-zero">0%</td><td class="heat-neg">−11%</td><td class="heat-neg">−2%</td><td class="heat-neg">−13%</td></tr>
-            <tr><td>🟡 Меоре</td><td>11 477</td><td class="heat-pos">+3%</td><td class="heat-neg">−9%</td><td class="heat-neg">−7%</td><td class="heat-zero">0%</td></tr>
-            <tr><td>🟡 Диди</td><td>13 940</td><td class="heat-pos">+2%</td><td class="heat-pos">+1%</td><td class="heat-neg">−1%</td><td class="heat-neg">−9%</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-wrap" style="margin-top:20px;">
-        <table class="heatmap-table">
-          <thead><tr><th>Ресторан</th><th>Выручка</th><th>Будний обед</th><th>Выходной обед</th><th>Будний ужин</th><th>Выходной ужин</th></tr></thead>
-          <tbody>
-            <tr><td>🟢 Центр</td><td>31.9M ₽</td><td class="heat-neg">−4%</td><td class="heat-neg">−2%</td><td class="heat-pos">+5%</td><td class="heat-pos">+6%</td></tr>
-            <tr><td>🔴 Романи</td><td>26.8M ₽</td><td class="heat-neg">−5%</td><td class="heat-neg">−12%</td><td class="heat-pos">+1%</td><td class="heat-neg">−5%</td></tr>
-            <tr><td>🟡 Меоре</td><td>23.8M ₽</td><td class="heat-neg">−4%</td><td class="heat-neg">−12%</td><td class="heat-neg">−9%</td><td class="heat-neg">−5%</td></tr>
-            <tr><td>🟡 Диди</td><td>28.7M ₽</td><td class="heat-neg">−2%</td><td class="heat-neg">−1%</td><td class="heat-neg">−6%</td><td class="heat-neg">−18%</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="charts-row" style="margin-top:20px;">
-        <div class="chart-box"><div class="chart-box-title">Выручка по ресторанам</div><canvas id="c_network_rev"></canvas></div>
-        <div class="chart-box"><div class="chart-box-title">Выручка по мотивам — динамика к году (%)</div><canvas id="c_network_motiv"></canvas></div>
-      </div>
+<!-- СРАВНЕНИЕ СЕТИ -->
+<div class="section">
+  <div class="section-head">Сравнение сети — выручка и гости по мотивам</div>
+  <div class="rest-block">
+    <div class="rb-desc" style="margin-bottom:14px">Тепловая карта: динамика выручки к прошлому году · <span style="color:var(--red)">Красное</span> — падение · <span style="color:var(--green)">Зелёное</span> — рост</div>
+    <div class="tbl-wrap">
+      <table class="hmap">
+        <thead><tr><th>Ресторан</th><th>Итого гостей</th><th>Будний обед</th><th>Выходной обед</th><th>Будний ужин</th><th>Выходной ужин</th></tr></thead>
+        <tbody>
+          <tr><td>🟢 Центр</td><td>15 905</td><td class="hn">−4%</td><td class="hp">+2%</td><td class="hn">−1%</td><td class="hp">+3%</td></tr>
+          <tr><td>🔴 Романи</td><td>13 782</td><td class="hz">0%</td><td class="hn">−11%</td><td class="hn">−2%</td><td class="hn">−13%</td></tr>
+          <tr><td>🟡 Меоре</td><td>11 477</td><td class="hp">+3%</td><td class="hn">−9%</td><td class="hn">−7%</td><td class="hz">0%</td></tr>
+          <tr><td>🟡 Диди</td><td>13 940</td><td class="hp">+2%</td><td class="hp">+1%</td><td class="hn">−1%</td><td class="hn">−9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap" style="margin-top:16px">
+      <table class="hmap">
+        <thead><tr><th>Ресторан</th><th>Выручка</th><th>Будний обед</th><th>Выходной обед</th><th>Будний ужин</th><th>Выходной ужин</th></tr></thead>
+        <tbody>
+          <tr><td>🟢 Центр</td><td>31.9M ₽</td><td class="hn">−4%</td><td class="hn">−2%</td><td class="hp">+5%</td><td class="hp">+6%</td></tr>
+          <tr><td>🔴 Романи</td><td>26.8M ₽</td><td class="hn">−5%</td><td class="hn">−12%</td><td class="hp">+1%</td><td class="hn">−5%</td></tr>
+          <tr><td>🟡 Меоре</td><td>23.8M ₽</td><td class="hn">−4%</td><td class="hn">−12%</td><td class="hn">−9%</td><td class="hn">−5%</td></tr>
+          <tr><td>🟡 Диди</td><td>28.7M ₽</td><td class="hn">−2%</td><td class="hn">−1%</td><td class="hn">−6%</td><td class="hn">−18%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="charts-row" style="margin-top:16px">
+      <div class="chart-box"><div class="chart-title">Выручка по ресторанам</div><canvas id="chart-network-rev"></canvas></div>
+      <div class="chart-box"><div class="chart-title">Выручка по мотивам — динамика к году (%)</div><canvas id="chart-network-motiv"></canvas></div>
     </div>
   </div>
+</div>
 
-</div><!-- /container -->
+</div><!-- /wrap -->
 
 <script>
 (function(){
-  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
-  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
-  r.setAttribute('data-theme',d);
-  if(t)t.addEventListener('click',()=>{
-    d=d==='dark'?'light':'dark';
-    r.setAttribute('data-theme',d);
-    t.textContent=d==='dark'?'☀️ Светлая':'🌙 Тёмная';
+  const btn=document.querySelector('[data-theme-toggle]'),html=document.documentElement;
+  let theme=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  html.setAttribute('data-theme',theme);
+  if(btn)btn.addEventListener('click',()=>{
+    theme=theme==='dark'?'light':'dark';
+    html.setAttribute('data-theme',theme);
+    btn.textContent=theme==='dark'?'☀️ Светлая':'🌙 Тёмная';
   });
 })();
 
-const MOTIV_LABELS=['Будний обед','Выходной обед','Будний ужин','Выходной ужин'];
-const COLORS_DONUT=['#e8b84b','#f0d080','#4caf50','#81c784'];
-const BAR_POS='#4caf50'; const BAR_NEG='#f44336';
+const ML=['Будний обед','Выходной обед','Будний ужин','Выходной ужин'];
+const DC=['#e8b84b','#d4900a','#4caf50','#2d7a2d'];
 
-function barColors(vals){return vals.map(v=>v>=0?BAR_POS:BAR_NEG);}
-
-function makePie(id,data,labels){
-  const ctx=document.getElementById(id);
-  if(!ctx)return;
-  new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:COLORS_DONUT,borderWidth:0,hoverOffset:4}]},options:{plugins:{legend:{position:'bottom',labels:{color:'#8a8885',font:{size:11},boxWidth:10,padding:8}}},cutout:'60%',maintainAspectRatio:true}});
+function getTheme(){
+  const t=document.documentElement.getAttribute('data-theme');
+  return t==='light'?{
+    text:'#28251d',muted:'#7a7974',border:'#dcd9d5',surface:'#f0ede8'
+  }:{
+    text:'#cdccca',muted:'#797876',border:'#2e2d2b',surface:'#222120'
+  };
 }
 
-function makeBar(id,data,labels){
-  const ctx=document.getElementById(id);
-  if(!ctx)return;
-  new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{data:data,backgroundColor:barColors(data),borderRadius:4,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8a8885',font:{size:10}},grid:{display:false}},y:{ticks:{color:'#8a8885',font:{size:10},callback:v=>v+'%'},grid:{color:'rgba(138,136,133,0.15)'}}},maintainAspectRatio:true}});
+const charts={};
+function mkPie(id,data){
+  const c=document.getElementById(id);if(!c)return;
+  const t=getTheme();
+  charts[id]=new Chart(c,{type:'doughnut',data:{labels:ML,datasets:[{data,backgroundColor:DC,borderWidth:0,hoverOffset:4}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:t.muted,font:{size:10},boxWidth:8,padding:6}}},cutout:'62%',maintainAspectRatio:true}});
+}
+
+function mkBar(id,data){
+  const c=document.getElementById(id);if(!c)return;
+  const t=getTheme();
+  const bg=data.map(v=>v>=0?'#4caf50':'#e05c3a');
+  charts[id]=new Chart(c,{type:'bar',data:{labels:ML,datasets:[{data,backgroundColor:bg,borderRadius:4,borderSkipped:false}]},
+  options:{plugins:{legend:{display:false}},
+  scales:{x:{ticks:{color:t.muted,font:{size:10}},grid:{display:false}},
+  y:{ticks:{color:t.muted,font:{size:10},callback:v=>(v>0?'+':'')+v+'%'},grid:{color:t.border+'44'}}},maintainAspectRatio:true}});
+}
+
+function buildPie(id,rest){
+  const d={center:[7820734,6087933,12119319,5840860],romani:[6167903,5804616,8994715,5844136],meore:[4958693,5576389,8139002,5110111],didi:[6996817,7325812,9126273,5284976]};
+  mkPie(id,d[rest]);
+}
+function buildDelta(id,rest){
+  const d={center:[-4,-2,5,6],romani:[-5,-12,1,-5],meore:[-4,-12,-9,-5],didi:[-2,-1,-6,-18]};
+  mkBar(id,d[rest]);
+}
+function buildNetwork(){
+  const c5=document.getElementById('chart-network-rev');
+  if(c5){const t=getTheme();charts['net-rev']=new Chart(c5,{type:'bar',data:{labels:['Центр','Романи','Меоре','Диди'],datasets:[{data:[31868846,26811370,23784196,28733878],backgroundColor:['#4caf50','#e05c3a','#d4900a','#d4900a'],borderRadius:6,borderSkipped:false}]},
+  options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:t.muted,font:{size:11}},grid:{display:false}},y:{ticks:{color:t.muted,font:{size:10},callback:v=>(v/1e6).toFixed(1)+'M'},grid:{color:t.border+'44'}}},maintainAspectRatio:true}});}
+  const c6=document.getElementById('chart-network-motiv');
+  if(c6){const t=getTheme();charts['net-mot']=new Chart(c6,{type:'bar',data:{labels:ML,datasets:[
+    {label:'Центр',data:[-4,-2,5,6],backgroundColor:'#4caf50',borderRadius:3},
+    {label:'Романи',data:[-5,-12,1,-5],backgroundColor:'#e05c3a',borderRadius:3},
+    {label:'Меоре',data:[-4,-12,-9,-5],backgroundColor:'#d4900a',borderRadius:3},
+    {label:'Диди',data:[-2,-1,-6,-18],backgroundColor:'#e8b84b',borderRadius:3},
+  ]},options:{plugins:{legend:{labels:{color:t.muted,font:{size:10},padding:6}}},
+  scales:{x:{ticks:{color:t.muted,font:{size:10}},grid:{display:false}},
+  y:{ticks:{color:t.muted,font:{size:10},callback:v=>(v>0?'+':'')+v+'%'},grid:{color:t.border+'44'}}},maintainAspectRatio:true}});}
 }
 
 function initCharts(){
-  makePie('c_center_pie',[7820734,6087933,12119319,5840860],MOTIV_LABELS);
-  makeBar('c_center_bar',[-4,-2,+5,+6],MOTIV_LABELS);
-
-  makePie('c_romani_pie',[6167903,5804616,8994715,5844136],MOTIV_LABELS);
-  makeBar('c_romani_bar',[-5,-12,+1,-5],MOTIV_LABELS);
-
-  makePie('c_meore_pie',[4958693,5576389,8139002,5110111],MOTIV_LABELS);
-  makeBar('c_meore_bar',[-4,-12,-9,-5],MOTIV_LABELS);
-
-  makePie('c_didi_pie',[6996817,7325812,9126273,5284976],MOTIV_LABELS);
-  makeBar('c_didi_bar',[-2,-1,-6,-18],MOTIV_LABELS);
-
-  const ctx5=document.getElementById('c_network_rev');
-  if(ctx5) new Chart(ctx5,{type:'bar',data:{labels:['Центр','Романи','Меоре','Диди'],datasets:[{data:[31868846,26811370,23784196,28733878],backgroundColor:['#4caf50','#f44336','#e67e22','#e67e22'],borderRadius:6,borderSkipped:false}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8a8885',font:{size:11}},grid:{display:false}},y:{ticks:{color:'#8a8885',font:{size:10},callback:v=>(v/1000000).toFixed(1)+'M'},grid:{color:'rgba(138,136,133,0.15)'}}},maintainAspectRatio:true}});
-
-  const ctx6=document.getElementById('c_network_motiv');
-  if(ctx6) new Chart(ctx6,{type:'bar',data:{labels:MOTIV_LABELS,datasets:[
-    {label:'Центр',data:[-4,-2,5,6],backgroundColor:'#4caf50',borderRadius:3},
-    {label:'Романи',data:[-5,-12,1,-5],backgroundColor:'#f44336',borderRadius:3},
-    {label:'Меоре',data:[-4,-12,-9,-5],backgroundColor:'#e67e22',borderRadius:3},
-    {label:'Диди',data:[-2,-1,-6,-18],backgroundColor:'#ffc107',borderRadius:3},
-  ]},options:{plugins:{legend:{labels:{color:'#8a8885',font:{size:10},padding:8}}},scales:{x:{ticks:{color:'#8a8885',font:{size:10}},grid:{display:false}},y:{ticks:{color:'#8a8885',font:{size:10},callback:v=>v+'%'},grid:{color:'rgba(138,136,133,0.15)'}}},maintainAspectRatio:true}});
+  ['center','romani','meore','didi'].forEach(r=>{buildPie('chart-'+r+'-pie',r);buildDelta('chart-'+r+'-delta',r)});
+  buildNetwork();
 }
-
 document.addEventListener('DOMContentLoaded',initCharts);
 </script>
 </body>
