@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Супра — Мотивы, 1–7 апр 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root,[data-theme="light"]{
+  --bg:#f7f6f2;--surface:#f9f8f5;--surface2:#fff;--border:#dcd9d5;
+  --text:#28251d;--muted:#7a7974;--faint:#bab9b4;
+  --primary:#01696f;--primary-h:#0c4e54;
+  --up:#437a22;--up-bg:#d4dfcc;--up-t:#2e5c10;
+  --down:#a13544;--down-bg:#dececb;--down-t:#782b33;
+  --warn:#da7101;--warn-bg:#e7d7c4;--warn-t:#c55700;
+  --neu:#006494;--neu-bg:#c6d8e4;--neu-t:#0b5177;
+  --shadow:0 2px 8px rgba(40,37,29,.08);--r:8px;--r2:12px;
+}
+[data-theme="dark"]{
+  --bg:#171614;--surface:#1c1b19;--surface2:#201f1d;--border:#393836;
+  --text:#cdccca;--muted:#797876;--faint:#5a5957;
+  --primary:#4f98a3;--primary-h:#227f8b;
+  --up:#6daa45;--up-bg:#3a4435;--up-t:#4d8f25;
+  --down:#dd6974;--down-bg:#574848;--down-t:#c24a59;
+  --warn:#fdab43;--warn-bg:#564b3e;--warn-t:#fec47e;
+  --neu:#5591c7;--neu-bg:#3a4550;--neu-t:#3b78ab;
+  --shadow:0 2px 8px rgba(0,0,0,.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:var(--bg);min-height:100vh}
+table{border-collapse:collapse;width:100%}
+button{cursor:pointer;background:none;border:none;font:inherit}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;gap:16px;height:52px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:var(--primary);letter-spacing:-.02em}
+.header-meta{color:var(--muted);font-size:12px;margin-left:4px}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.theme-btn{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:background .15s,color .15s}
+.theme-btn:hover{background:var(--border);color:var(--text)}
+.division-nav{display:flex;gap:4px;padding:16px 20px 0;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto}
+.div-tab{padding:8px 18px;border-radius:8px 8px 0 0;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;border:1px solid transparent;border-bottom:none;position:relative;bottom:-1px}
+.div-tab:hover{color:var(--text);background:var(--bg)}
+.div-tab.active{background:var(--bg);color:var(--primary);border-color:var(--border);border-bottom-color:var(--bg);font-weight:600}
+.div-emoji{margin-right:6px}
+.rest-nav{display:flex;gap:6px;padding:16px 20px;overflow-x:auto;background:var(--bg)}
+.rest-tab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;border:1px solid var(--border);background:var(--surface)}
+.rest-tab:hover{color:var(--text)}
+.rest-tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 20px 16px}
+@media(max-width:768px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.kpi-card:hover,.kpi-card.active{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary)}
+.kpi-name{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.kpi-guests{font-size:22px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
+.kpi-revenue{font-size:13px;font-weight:600;color:var(--primary);margin-bottom:4px}
+.kpi-badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600}
+.badge-up{background:var(--up-bg);color:var(--up-t)}
+.badge-down{background:var(--down-bg);color:var(--down-t)}
+.badge-warn{background:var(--warn-bg);color:var(--warn-t)}
+.badge-neu{background:var(--neu-bg);color:var(--neu-t)}
+.content{padding:0 20px 20px;display:none}
+.content.active{display:block}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:16px;overflow:hidden}
+.panel-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:13px;font-weight:600}
+.panel-sub{font-size:12px;color:var(--muted)}
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{text-align:left;padding:9px 12px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--surface2)}
+.data-table .total-row td{font-weight:700;background:var(--surface2)}
+.motive-label{font-weight:500}
+.motive-time{font-size:11px;color:var(--muted);display:block;margin-top:1px}
+.num{font-variant-numeric:tabular-nums;text-align:right}
+.delta{font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:2px}
+.delta.up{color:var(--up-t)}.delta.down{color:var(--down-t)}.delta.neu{color:var(--muted)}.delta.warn{color:var(--warn-t)}
+.pct-bar-wrap{width:80px;height:6px;background:var(--border);border-radius:3px;display:inline-block;vertical-align:middle}
+.pct-bar{height:6px;background:var(--primary);border-radius:3px}
+.share-cell{display:flex;align-items:center;gap:8px;min-width:110px}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 16px}
+@media(max-width:640px){.charts-row{grid-template-columns:1fr}}
+.chart-wrap{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px}
+.chart-title{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+canvas{max-height:200px}
+.net-table-wrap{overflow-x:auto;padding:0}
+.net-table th:first-child,.net-table td:first-child{position:sticky;left:0;background:var(--surface);z-index:1;min-width:120px}
+.net-table tr:hover td{background:var(--bg)}
+.net-table .total-row td{font-weight:700;background:var(--surface2)}
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px 16px}
+@media(max-width:640px){.insights{grid-template-columns:1fr}}
+.insight{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px}
+.insight-icon{font-size:18px;margin-bottom:6px}
+.insight-title{font-size:12px;font-weight:700;margin-bottom:4px}
+.insight-body{font-size:12px;color:var(--muted);line-height:1.5}
+.section-title{font-size:13px;font-weight:700;padding:16px 20px 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="var(--primary)"/><path d="M5 17 Q8 7 12 12 Q16 17 19 7" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    Супра Analytics
+  </div>
+  <span class="header-meta">1–7 апр 2026 vs 2–8 апр 2025 · LFL</span>
+  <div class="header-right">
+    <button class="theme-btn" data-theme-toggle aria-label="Переключить тему">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="division-nav">
+  <div class="div-tab active" onclick="setDiv('hall')"><span class="div-emoji">🍽️</span>Зал</div>
+  <div class="div-tab" onclick="setDiv('delivery')"><span class="div-emoji">🛵</span>Доставка</div>
+  <div class="div-tab" onclick="setDiv('takeaway')"><span class="div-emoji">📦</span>Вынос</div>
+</div>
+
+<!-- ===== ЗАЛ ===== -->
+<div id="div-hall">
+  <div class="rest-nav">
+    <div class="rest-tab active" onclick="setRest('hall','tsentr')">Центр</div>
+    <div class="rest-tab" onclick="setRest('hall','romani')">Романи</div>
+    <div class="rest-tab" onclick="setRest('hall','meore')">Меоре</div>
+    <div class="rest-tab" onclick="setRest('hall','didi')">Диди</div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-card active" onclick="setRest('hall','tsentr')"><div class="kpi-name">Центр · Зал</div><div class="kpi-guests">Н/д гостей</div><div class="kpi-revenue">9 169 755 ₽</div><div class="kpi-badges"><span class="badge badge-up">+9% к году</span><span class="badge badge-up">+5% к плану</span></div></div>
+    <div class="kpi-card" onclick="setRest('hall','romani')"><div class="kpi-name">Романи · Зал</div><div class="kpi-guests">Н/д гостей</div><div class="kpi-revenue">6 326 630 ₽</div><div class="kpi-badges"><span class="badge badge-up">+3% к году</span><span class="badge badge-down">-3% к плану</span></div></div>
+    <div class="kpi-card" onclick="setRest('hall','meore')"><div class="kpi-name">Меоре · Зал</div><div class="kpi-guests">Н/д гостей</div><div class="kpi-revenue">6 055 515 ₽</div><div class="kpi-badges"><span class="badge badge-neu">-1% к году</span><span class="badge badge-up">+4% к плану</span></div></div>
+    <div class="kpi-card" onclick="setRest('hall','didi')"><div class="kpi-name">Диди · Зал</div><div class="kpi-guests">Н/д гостей</div><div class="kpi-revenue">7 197 058 ₽</div><div class="kpi-badges"><span class="badge badge-neu">0% к году</span><span class="badge badge-up">+1% к плану</span></div></div>
+  </div>
+
+  <div id="hall-tsentr" class="content active">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🍽️ Центр — Зал</span><span class="panel-sub">1–7 апр 2026</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Выручка, ₽</th><th class="num">Доля</th><th class="num">∆ к году</th><th class="num">∆ к плану</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">9 169 755</td><td class="num"><div class="share-cell"><div class="pct-bar-wrap"><div class="pct-bar" style="width:100%"></div></div>100%</div></td><td class="num"><span class="delta up">+9%</span></td><td class="num"><span class="delta up">+5%</span></td></tr>
+        <tr><td><span class="motive-label">ВС-ЧТ 17–07</span><span class="motive-time">Будний вечер</span></td><td class="num">3 473 201</td><td class="num"><div class="share-cell"><div class="pct-bar-wrap"><div class="pct-bar" style="width:38%"></div></div>38%</div></td><td class="num"><span class="delta up">+7%</span></td><td class="num"><span class="delta up">+2%</span></td></tr>
+        <tr><td><span class="motive-label">ПТ-СБ 17–07</span><span class="motive-time">Вечер выходных</span></td><td class="num">1 610 972</td><td class="num"><div class="share-cell"><div class="pct-bar-wrap"><div class="pct-bar" style="width:18%"></div></div>18%</div></td><td class="num"><span class="delta up">+12%</span></td><td class="num"><span class="delta up">+8%</span></td></tr>
+        <tr><td><span class="motive-label">ПН-ПТ 07–17</span><span class="motive-time">Будний день</span></td><td class="num">2 577 106</td><td class="num"><div class="share-cell"><div class="pct-bar-wrap"><div class="pct-bar" style="width:28%"></div></div>28%</div></td><td class="num"><span class="delta up">+6%</span></td><td class="num"><span class="delta up">+1%</span></td></tr>
+        <tr><td><span class="motive-label">СБ-ВС 07–17</span><span class="motive-time">Выходной день</span></td><td class="num">1 508 476</td><td class="num"><div class="share-cell"><div class="pct-bar-wrap"><div class="pct-bar" style="width:16%"></div></div>16%</div></td><td class="num"><span class="delta up">+20%</span></td><td class="num"><span class="delta up">+16%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Структура выручки</div><canvas id="hall-tsentr-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ к году, %</div><canvas id="hall-tsentr-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Выходной бранч +20%</div><div class="insight-body">СБ-ВС утро/день — лучший мотив зала. +20% к году, +16% к плану.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Вечер выходных +12%</div><div class="insight-body">ПТ-СБ вечер растёт. Центр — единственный ресторан с позитивом в обоих вечерних мотивах.</div></div>
+        <div class="insight"><div class="insight-icon">📊</div><div class="insight-title">Все 4 мотива в зелёной зоне</div><div class="insight-body">Равномерный рост без провалов — самый устойчивый зал в сети.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="hall-romani" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🍽️ Романи — Зал</span><span class="panel-sub">1–7 апр 2026</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Выручка, ₽</th><th class="num">Доля</th><th class="num">∆ к году</th><th class="num">∆ к плану</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">6 326 630</td><td class="num">100%</td><td class="num"><span class="delta up">+3%</span></td><td class="num"><span class="delta down">-3%</span></td></tr>
+        <tr><td><span class="motive-label">ВС-ЧТ 17–07</span></td><td class="num">2 138 829</td><td class="num">34%</td><td class="num"><span class="delta down">-6%</span></td><td class="num"><span class="delta down">-8%</span></td></tr>
+        <tr><td><span class="motive-label">ПТ-СБ 17–07</span></td><td class="num">1 502 503</td><td class="num">24%</td><td class="num"><span class="delta up">+73%</span></td><td class="num"><span class="delta up">+50%</span></td></tr>
+        <tr><td><span class="motive-label">ПН-ПТ 07–17</span></td><td class="num">1 403 178</td><td class="num">22%</td><td class="num"><span class="delta down">-23%</span></td><td class="num"><span class="delta down">-30%</span></td></tr>
+        <tr><td><span class="motive-label">СБ-ВС 07–17</span></td><td class="num">1 282 121</td><td class="num">20%</td><td class="num"><span class="delta up">+6%</span></td><td class="num"><span class="delta up">+5%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Структура выручки</div><canvas id="hall-romani-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ к году, %</div><canvas id="hall-romani-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">Будний обед -23%/-30%</div><div class="insight-body">ПН-ПТ день: острейшее падение по залу в сети. Дневная аудитория уходит.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ПТ-СБ вечер взлетел +73%</div><div class="insight-body">Феноменальный рост пятницы-субботы. Нужно понять причину и закрепить.</div></div>
+        <div class="insight"><div class="insight-icon">🟡</div><div class="insight-title">Итог +3%, но план не выполнен</div><div class="insight-body">Рост к году (+3%) не покрывает отставание от плана (-3%). Структурный дисбаланс.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="hall-meore" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🍽️ Меоре — Зал</span><span class="panel-sub">1–7 апр 2026</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Выручка, ₽</th><th class="num">Доля</th><th class="num">∆ к году</th><th class="num">∆ к плану</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">6 055 515</td><td class="num">100%</td><td class="num"><span class="delta neu">-1%</span></td><td class="num"><span class="delta up">+4%</span></td></tr>
+        <tr><td><span class="motive-label">ВС-ЧТ 17–07</span></td><td class="num">2 231 178</td><td class="num">37%</td><td class="num"><span class="delta neu">0%</span></td><td class="num"><span class="delta up">+3%</span></td></tr>
+        <tr><td><span class="motive-label">ПТ-СБ 17–07</span></td><td class="num">1 181 688</td><td class="num">20%</td><td class="num"><span class="delta down">-4%</span></td><td class="num"><span class="delta up">+4%</span></td></tr>
+        <tr><td><span class="motive-label">ПН-ПТ 07–17</span></td><td class="num">1 322 463</td><td class="num">22%</td><td class="num"><span class="delta down">-9%</span></td><td class="num"><span class="delta up">+1%</span></td></tr>
+        <tr><td><span class="motive-label">СБ-ВС 07–17</span></td><td class="num">1 320 186</td><td class="num">22%</td><td class="num"><span class="delta up">+9%</span></td><td class="num"><span class="delta up">+5%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Структура выручки</div><canvas id="hall-meore-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ к году, %</div><canvas id="hall-meore-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Выходной день +9%</div><div class="insight-body">СБ-ВС 07–17: +9% к году, +5% к плану. Выходная дневная аудитория растёт.</div></div>
+        <div class="insight"><div class="insight-icon">📊</div><div class="insight-title">План выполнен по всем мотивам</div><div class="insight-body">Меоре выполняет план (+1%..+5%) по всем 4 мотивам — устойчивый результат.</div></div>
+        <div class="insight"><div class="insight-icon">🟡</div><div class="insight-title">LFL будни слабее</div><div class="insight-body">ПН-ПТ -9% к году. Нужно следить — пока план держится, но тренд настораживает.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="hall-didi" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🍽️ Диди — Зал</span><span class="panel-sub">1–7 апр 2026</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Выручка, ₽</th><th class="num">Доля</th><th class="num">∆ к году</th><th class="num">∆ к плану</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">7 197 058</td><td class="num">100%</td><td class="num"><span class="delta neu">0%</span></td><td class="num"><span class="delta up">+1%</span></td></tr>
+        <tr><td><span class="motive-label">ВС-ЧТ 17–07</span></td><td class="num">2 393 453</td><td class="num">33%</td><td class="num"><span class="delta up">+24%</span></td><td class="num"><span class="delta up">+18%</span></td></tr>
+        <tr><td><span class="motive-label">ПТ-СБ 17–07</span></td><td class="num">1 532 084</td><td class="num">21%</td><td class="num"><span class="delta down">-3%</span></td><td class="num"><span class="delta up">+8%</span></td></tr>
+        <tr><td><span class="motive-label">ПН-ПТ 07–17</span></td><td class="num">1 713 591</td><td class="num">24%</td><td class="num"><span class="delta down">-19%</span></td><td class="num"><span class="delta down">-24%</span></td></tr>
+        <tr><td><span class="motive-label">СБ-ВС 07–17</span></td><td class="num">1 557 930</td><td class="num">22%</td><td class="num"><span class="delta up">+1%</span></td><td class="num"><span class="delta up">+16%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Структура выручки</div><canvas id="hall-didi-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ к году, %</div><canvas id="hall-didi-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">Будний обед -19%/-24%</div><div class="insight-body">Критический провал будних ланчей. Самый острый показатель по залу в сети.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ВС-ЧТ вечер +24%</div><div class="insight-body">Лучший показатель будних вечеров по всей сети. Вечернее ядро аудитории очень сильное.</div></div>
+        <div class="insight"><div class="insight-icon">📊</div><div class="insight-title">Структурный дисбаланс</div><div class="insight-body">Вечер компенсирует провал дня. Нужно программу привлечения дневного трафика.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Сводная таблица — Зал, выручка</div>
+  <div style="padding:0 20px 20px"><div class="panel"><div style="overflow-x:auto" class="net-table-wrap">
+    <table class="data-table net-table"><thead><tr>
+      <th>Мотив</th><th class="num">Центр ₽</th><th class="num">∆г</th><th class="num">Романи ₽</th><th class="num">∆г</th><th class="num">Меоре ₽</th><th class="num">∆г</th><th class="num">Диди ₽</th><th class="num">∆г</th>
+    </tr></thead><tbody>
+      <tr class="total-row"><td>Итого</td><td class="num">9 169 755</td><td class="num"><span class="delta up">+9%</span></td><td class="num">6 326 630</td><td class="num"><span class="delta up">+3%</span></td><td class="num">6 055 515</td><td class="num"><span class="delta neu">-1%</span></td><td class="num">7 197 058</td><td class="num"><span class="delta neu">0%</span></td></tr>
+      <tr><td>ВС-ЧТ 17–07</td><td class="num">3 473 201</td><td class="num"><span class="delta up">+7%</span></td><td class="num">2 138 829</td><td class="num"><span class="delta down">-6%</span></td><td class="num">2 231 178</td><td class="num"><span class="delta neu">0%</span></td><td class="num">2 393 453</td><td class="num"><span class="delta up">+24%</span></td></tr>
+      <tr><td>ПТ-СБ 17–07</td><td class="num">1 610 972</td><td class="num"><span class="delta up">+12%</span></td><td class="num">1 502 503</td><td class="num"><span class="delta up">+73%</span></td><td class="num">1 181 688</td><td class="num"><span class="delta down">-4%</span></td><td class="num">1 532 084</td><td class="num"><span class="delta down">-3%</span></td></tr>
+      <tr><td>ПН-ПТ 07–17</td><td class="num">2 577 106</td><td class="num"><span class="delta up">+6%</span></td><td class="num">1 403 178</td><td class="num"><span class="delta down">-23%</span></td><td class="num">1 322 463</td><td class="num"><span class="delta down">-9%</span></td><td class="num">1 713 591</td><td class="num"><span class="delta down">-19%</span></td></tr>
+      <tr><td>СБ-ВС 07–17</td><td class="num">1 508 476</td><td class="num"><span class="delta up">+20%</span></td><td class="num">1 282 121</td><td class="num"><span class="delta up">+6%</span></td><td class="num">1 320 186</td><td class="num"><span class="delta up">+9%</span></td><td class="num">1 557 930</td><td class="num"><span class="delta up">+1%</span></td></tr>
+    </tbody></table>
+  </div></div></div>
+</div>
+
+<!-- ===== ДОСТАВКА ===== -->
+<div id="div-delivery" style="display:none">
+  <div class="rest-nav">
+    <div class="rest-tab active" onclick="setRest('delivery','tsentr')">Центр</div>
+    <div class="rest-tab" onclick="setRest('delivery','romani')">Романи</div>
+    <div class="rest-tab" onclick="setRest('delivery','meore')">Меоре</div>
+    <div class="rest-tab" onclick="setRest('delivery','didi')">Диди</div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-card active" onclick="setRest('delivery','tsentr')"><div class="kpi-name">Центр · Доставка</div><div class="kpi-guests">530 гостей</div><div class="kpi-revenue">1 878 515 ₽</div><div class="kpi-badges"><span class="badge badge-down">-19% г.</span><span class="badge badge-down">-15% выр.</span></div></div>
+    <div class="kpi-card" onclick="setRest('delivery','romani')"><div class="kpi-name">Романи · Доставка</div><div class="kpi-guests">429 гостей</div><div class="kpi-revenue">1 322 940 ₽</div><div class="kpi-badges"><span class="badge badge-down">-17% г.</span><span class="badge badge-down">-15% выр.</span></div></div>
+    <div class="kpi-card" onclick="setRest('delivery','meore')"><div class="kpi-name">Меоре · Доставка</div><div class="kpi-guests">577 гостей</div><div class="kpi-revenue">1 813 308 ₽</div><div class="kpi-badges"><span class="badge badge-down">-19% г.</span><span class="badge badge-up">+2% план</span></div></div>
+    <div class="kpi-card" onclick="setRest('delivery','didi')"><div class="kpi-name">Диди · Доставка</div><div class="kpi-guests">Н/д гостей</div><div class="kpi-revenue">2 064 016 ₽</div><div class="kpi-badges"><span class="badge badge-neu">-1% выр.</span><span class="badge badge-neu">-1% план</span></div></div>
+  </div>
+
+  <div id="delivery-tsentr" class="content active">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🛵 Центр — Доставка</span><span class="panel-sub">530 гостей | 1 878 515 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">530</td><td class="num"><span class="delta down">-19%</span></td><td class="num">1 878 515</td><td class="num"><span class="delta down">-15%</span></td><td class="num"><span class="delta down">-13%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">156</td><td class="num"><span class="delta down">-7%</span></td><td class="num">501 377</td><td class="num"><span class="delta up">+14%</span></td><td class="num"><span class="delta up">+15%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">122</td><td class="num"><span class="delta down">-24%</span></td><td class="num">393 187</td><td class="num"><span class="delta down">-26%</span></td><td class="num"><span class="delta down">-25%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">155</td><td class="num"><span class="delta down">-13%</span></td><td class="num">656 470</td><td class="num"><span class="delta down">-9%</span></td><td class="num"><span class="delta down">-8%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">97</td><td class="num"><span class="delta down">-36%</span></td><td class="num">327 481</td><td class="num"><span class="delta down">-35%</span></td><td class="num"><span class="delta down">-34%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="del-tsentr-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="del-tsentr-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">СБ-ВС день -36%/-35%</div><div class="insight-body">Выходной бранч критически провален. Самое глубокое падение доставки Центра.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ВС-ЧТ вечер: чек растёт</div><div class="insight-body">-7% гостей, но +14% выручки. Средний чек заказа вырос — позитивный сигнал.</div></div>
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">ПТ-СБ вечер -24%/-26%</div><div class="insight-body">Пятница-суббота — потеря доли доставки в пиковый вечер.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="delivery-romani" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🛵 Романи — Доставка</span><span class="panel-sub">429 гостей | 1 322 940 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">429</td><td class="num"><span class="delta down">-17%</span></td><td class="num">1 322 940</td><td class="num"><span class="delta down">-15%</span></td><td class="num"><span class="delta down">-20%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">133</td><td class="num"><span class="delta down">-32%</span></td><td class="num">405 554</td><td class="num"><span class="delta down">-24%</span></td><td class="num"><span class="delta down">-24%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">94</td><td class="num"><span class="delta up">+38%</span></td><td class="num">297 537</td><td class="num"><span class="delta up">+53%</span></td><td class="num"><span class="delta up">+27%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">119</td><td class="num"><span class="delta down">-17%</span></td><td class="num">363 447</td><td class="num"><span class="delta down">-23%</span></td><td class="num"><span class="delta down">-32%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">83</td><td class="num"><span class="delta down">-23%</span></td><td class="num">256 402</td><td class="num"><span class="delta down">-26%</span></td><td class="num"><span class="delta down">-25%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="del-romani-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="del-romani-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ПТ-СБ взрыв +38%/+53%</div><div class="insight-body">Выручка растёт быстрее гостей — значительный рост чека. Лучший мотив доставки Романи.</div></div>
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">ВС-ЧТ вечер -32%/-24%</div><div class="insight-body">Острейшее падение будних вечеров доставки в сети. Нужен анализ конкурентов.</div></div>
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">Дневной блок тотально в минусе</div><div class="insight-body">Оба дневных мотива -17%...-23% к году. Доставка в обед не работает.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="delivery-meore" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🛵 Меоре — Доставка</span><span class="panel-sub">577 гостей | 1 813 308 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">577</td><td class="num"><span class="delta down">-19%</span></td><td class="num">1 813 308</td><td class="num"><span class="delta down">-13%</span></td><td class="num"><span class="delta up">+2%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">212</td><td class="num"><span class="delta down">-5%</span></td><td class="num">618 958</td><td class="num"><span class="delta up">+8%</span></td><td class="num"><span class="delta up">+27%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">116</td><td class="num"><span class="delta down">-28%</span></td><td class="num">387 321</td><td class="num"><span class="delta down">-20%</span></td><td class="num"><span class="delta down">-6%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">137</td><td class="num"><span class="delta down">-21%</span></td><td class="num">478 509</td><td class="num"><span class="delta down">-15%</span></td><td class="num"><span class="delta up">+4%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">112</td><td class="num"><span class="delta down">-24%</span></td><td class="num">328 520</td><td class="num"><span class="delta down">-30%</span></td><td class="num"><span class="delta down">-21%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="del-meore-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="del-meore-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Выручка лучше гостей</div><div class="insight-body">-19% гостей, -13% выручки, план выполнен (+2%). Растёт чек — качество заказа выше.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ВС-ЧТ вечер: чек взлетел</div><div class="insight-body">-5% гостей, +8% выручки. Значительный рост среднего чека в будний вечер.</div></div>
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">СБ-ВС день -24%/-30%</div><div class="insight-body">Выходной бранч доставки падает глубже всего — -30% к году.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="delivery-didi" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">🛵 Диди — Доставка</span><span class="panel-sub">2 064 016 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Выручка, ₽</th><th class="num">Доля</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">2 064 016</td><td class="num">100%</td><td class="num"><span class="delta neu">-1%</span></td><td class="num"><span class="delta neu">-1%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">596 028</td><td class="num">29%</td><td class="num"><span class="delta up">+23%</span></td><td class="num"><span class="delta up">+23%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">397 328</td><td class="num">19%</td><td class="num"><span class="delta down">-14%</span></td><td class="num"><span class="delta down">-14%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">612 677</td><td class="num">30%</td><td class="num"><span class="delta down">-15%</span></td><td class="num"><span class="delta down">-15%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">457 983</td><td class="num">22%</td><td class="num"><span class="delta up">+11%</span></td><td class="num"><span class="delta up">+11%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Структура выручки</div><canvas id="del-didi-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ к году, %</div><canvas id="del-didi-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ВС-ЧТ вечер +23%</div><div class="insight-body">Лучший показатель доставки в сети по будним вечерам. Ночная аудитория Диди сильна.</div></div>
+        <div class="insight"><div class="insight-icon">📊</div><div class="insight-title">Лучшая доставка в сети</div><div class="insight-body">Итог -1% — минимальное падение из всех ресторанов. Структура сбалансирована.</div></div>
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">Обед будний -15%</div><div class="insight-body">ПН-ПТ день: -15% к году и плану. Единственная зона риска.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Сводная таблица — Доставка</div>
+  <div style="padding:0 20px 20px"><div class="panel"><div style="overflow-x:auto" class="net-table-wrap">
+    <table class="data-table net-table"><thead><tr>
+      <th>Мотив</th><th class="num">Центр г.</th><th class="num">∆г</th><th class="num">Романи г.</th><th class="num">∆г</th><th class="num">Меоре г.</th><th class="num">∆г</th><th class="num">Центр ₽</th><th class="num">∆г</th><th class="num">Романи ₽</th><th class="num">∆г</th><th class="num">Меоре ₽</th><th class="num">∆г</th>
+    </tr></thead><tbody>
+      <tr class="total-row"><td>Итого</td><td class="num">530</td><td class="num"><span class="delta down">-19%</span></td><td class="num">429</td><td class="num"><span class="delta down">-17%</span></td><td class="num">577</td><td class="num"><span class="delta down">-19%</span></td><td class="num">1 878 515</td><td class="num"><span class="delta down">-15%</span></td><td class="num">1 322 940</td><td class="num"><span class="delta down">-15%</span></td><td class="num">1 813 308</td><td class="num"><span class="delta down">-13%</span></td></tr>
+      <tr><td>ВС-ЧТ 17–07</td><td class="num">156</td><td class="num"><span class="delta down">-7%</span></td><td class="num">133</td><td class="num"><span class="delta down">-32%</span></td><td class="num">212</td><td class="num"><span class="delta down">-5%</span></td><td class="num">501 377</td><td class="num"><span class="delta up">+14%</span></td><td class="num">405 554</td><td class="num"><span class="delta down">-24%</span></td><td class="num">618 958</td><td class="num"><span class="delta up">+8%</span></td></tr>
+      <tr><td>ПТ-СБ 17–07</td><td class="num">122</td><td class="num"><span class="delta down">-24%</span></td><td class="num">94</td><td class="num"><span class="delta up">+38%</span></td><td class="num">116</td><td class="num"><span class="delta down">-28%</span></td><td class="num">393 187</td><td class="num"><span class="delta down">-26%</span></td><td class="num">297 537</td><td class="num"><span class="delta up">+53%</span></td><td class="num">387 321</td><td class="num"><span class="delta down">-20%</span></td></tr>
+      <tr><td>ПН-ПТ 07–17</td><td class="num">155</td><td class="num"><span class="delta down">-13%</span></td><td class="num">119</td><td class="num"><span class="delta down">-17%</span></td><td class="num">137</td><td class="num"><span class="delta down">-21%</span></td><td class="num">656 470</td><td class="num"><span class="delta down">-9%</span></td><td class="num">363 447</td><td class="num"><span class="delta down">-23%</span></td><td class="num">478 509</td><td class="num"><span class="delta down">-15%</span></td></tr>
+      <tr><td>СБ-ВС 07–17</td><td class="num">97</td><td class="num"><span class="delta down">-36%</span></td><td class="num">83</td><td class="num"><span class="delta down">-23%</span></td><td class="num">112</td><td class="num"><span class="delta down">-24%</span></td><td class="num">327 481</td><td class="num"><span class="delta down">-35%</span></td><td class="num">256 402</td><td class="num"><span class="delta down">-26%</span></td><td class="num">328 520</td><td class="num"><span class="delta down">-30%</span></td></tr>
+    </tbody></table>
+  </div></div></div>
+</div>
+
+<!-- ===== ВЫНОС ===== -->
+<div id="div-takeaway" style="display:none">
+  <div class="rest-nav">
+    <div class="rest-tab active" onclick="setRest('takeaway','tsentr')">Центр</div>
+    <div class="rest-tab" onclick="setRest('takeaway','romani')">Романи</div>
+    <div class="rest-tab" onclick="setRest('takeaway','meore')">Меоре</div>
+    <div class="rest-tab" onclick="setRest('takeaway','didi')">Диди</div>
+  </div>
+  <div class="kpi-row">
+    <div class="kpi-card active" onclick="setRest('takeaway','tsentr')"><div class="kpi-name">Центр · Вынос</div><div class="kpi-guests">173 гостей</div><div class="kpi-revenue">325 956 ₽</div><div class="kpi-badges"><span class="badge badge-down">-36% г.</span><span class="badge badge-down">-36% выр.</span></div></div>
+    <div class="kpi-card" onclick="setRest('takeaway','romani')"><div class="kpi-name">Романи · Вынос</div><div class="kpi-guests">449 гостей</div><div class="kpi-revenue">894 538 ₽</div><div class="kpi-badges"><span class="badge badge-neu">-2% г.</span><span class="badge badge-up">+7% выр.</span><span class="badge badge-up">+1% план</span></div></div>
+    <div class="kpi-card" onclick="setRest('takeaway','meore')"><div class="kpi-name">Меоре · Вынос</div><div class="kpi-guests">302 гостей</div><div class="kpi-revenue">737 440 ₽</div><div class="kpi-badges"><span class="badge badge-down">-4% г.</span><span class="badge badge-up">+6% выр.</span></div></div>
+    <div class="kpi-card" onclick="setRest('takeaway','didi')"><div class="kpi-name">Диди · Вынос</div><div class="kpi-guests">406 гостей</div><div class="kpi-revenue">918 497 ₽</div><div class="kpi-badges"><span class="badge badge-neu">-1% г.</span><span class="badge badge-up">+8% выр.</span><span class="badge badge-up">+15% план</span></div></div>
+  </div>
+
+  <div id="takeaway-tsentr" class="content active">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">📦 Центр — Вынос</span><span class="panel-sub">173 гостей | 325 956 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">∆ план г.</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">173</td><td class="num"><span class="delta down">-36%</span></td><td class="num"><span class="delta down">-26%</span></td><td class="num">325 956</td><td class="num"><span class="delta down">-36%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">52</td><td class="num"><span class="delta down">-45%</span></td><td class="num"><span class="delta down">-30%</span></td><td class="num">77 195</td><td class="num"><span class="delta down">-50%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">32</td><td class="num"><span class="delta down">-56%</span></td><td class="num"><span class="delta down">-54%</span></td><td class="num">78 764</td><td class="num"><span class="delta down">-46%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">60</td><td class="num"><span class="delta down">-10%</span></td><td class="num"><span class="delta up">+4%</span></td><td class="num">124 675</td><td class="num"><span class="delta down">-6%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">29</td><td class="num"><span class="delta down">-22%</span></td><td class="num"><span class="delta down">-12%</span></td><td class="num">45 322</td><td class="num"><span class="delta down">-40%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="tak-tsentr-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="tak-tsentr-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🔴</div><div class="insight-title">Катастрофическое падение</div><div class="insight-body">Вынос Центра потерял -36% гостей и выручки. Вечер -45...-56% — сигнал о системной проблеме.</div></div>
+        <div class="insight"><div class="insight-icon">🟡</div><div class="insight-title">Будний обед держится</div><div class="insight-body">ПН-ПТ: -10% гостей, план выполнен (+4%). Единственная точка опоры канала.</div></div>
+        <div class="insight"><div class="insight-icon">❓</div><div class="insight-title">Требует диагностики</div><div class="insight-body">Возможные причины: изменение зоны выноса, конкуренция, перераспределение в доставку.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="takeaway-romani" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">📦 Романи — Вынос</span><span class="panel-sub">449 гостей | 894 538 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">∆ план г.</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">449</td><td class="num"><span class="delta neu">-2%</span></td><td class="num"><span class="delta up">+7%</span></td><td class="num">894 538</td><td class="num"><span class="delta up">+7%</span></td><td class="num"><span class="delta up">+1%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">118</td><td class="num"><span class="delta down">-25%</span></td><td class="num"><span class="delta down">-17%</span></td><td class="num">219 062</td><td class="num"><span class="delta down">-24%</span></td><td class="num"><span class="delta down">-30%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">101</td><td class="num"><span class="delta up">+80%</span></td><td class="num"><span class="delta up">+89%</span></td><td class="num">176 370</td><td class="num"><span class="delta up">+49%</span></td><td class="num"><span class="delta up">+47%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">131</td><td class="num"><span class="delta down">-11%</span></td><td class="num"><span class="delta down">-2%</span></td><td class="num">276 194</td><td class="num"><span class="delta up">+21%</span></td><td class="num"><span class="delta up">+8%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">99</td><td class="num"><span class="delta up">+4%</span></td><td class="num"><span class="delta up">+12%</span></td><td class="num">222 912</td><td class="num"><span class="delta up">+10%</span></td><td class="num"><span class="delta up">+13%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="tak-romani-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="tak-romani-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ПТ-СБ вечер взрывной</div><div class="insight-body">+80% гостей, +49% выручки, +89% к плану. Феноменальный результат выноса Романи.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Чек растёт при падении гостей</div><div class="insight-body">-2% гостей, +7% выручки. Выгодная структура — больше денег с меньшим трафиком.</div></div>
+        <div class="insight"><div class="insight-icon">🟡</div><div class="insight-title">ВС-ЧТ вечер -25%/-24%</div><div class="insight-body">Будние вечера теряют аудиторию выноса. Зона роста для программ лояльности.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="takeaway-meore" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">📦 Меоре — Вынос</span><span class="panel-sub">302 гостей | 737 440 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">∆ план г.</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">302</td><td class="num"><span class="delta down">-4%</span></td><td class="num"><span class="delta up">+10%</span></td><td class="num">737 440</td><td class="num"><span class="delta up">+6%</span></td><td class="num"><span class="delta up">+6%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">85</td><td class="num"><span class="delta up">+23%</span></td><td class="num"><span class="delta up">+49%</span></td><td class="num">159 020</td><td class="num"><span class="delta up">+8%</span></td><td class="num"><span class="delta up">+14%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">56</td><td class="num"><span class="delta down">-16%</span></td><td class="num"><span class="delta down">-10%</span></td><td class="num">147 684</td><td class="num"><span class="delta up">+7%</span></td><td class="num"><span class="delta up">+1%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">88</td><td class="num"><span class="delta down">-25%</span></td><td class="num"><span class="delta down">-1%</span></td><td class="num">208 511</td><td class="num"><span class="delta down">-21%</span></td><td class="num"><span class="delta down">-10%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">73</td><td class="num"><span class="delta up">+22%</span></td><td class="num"><span class="delta up">+14%</span></td><td class="num">222 226</td><td class="num"><span class="delta up">+53%</span></td><td class="num"><span class="delta up">+29%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="tak-meore-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="tak-meore-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">СБ-ВС день +22%/+53%</div><div class="insight-body">Выходной бранч — феноменальный рост выручки при росте гостей. Лучший показатель выноса.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">ВС-ЧТ вечер +23% гостей</div><div class="insight-body">Будние вечера активно растут — Меоре наращивает аудиторию выноса.</div></div>
+        <div class="insight"><div class="insight-icon">🟡</div><div class="insight-title">Будний обед -25% гостей</div><div class="insight-body">LFL резко падает, хотя план почти выполнен. Нужно следить за трендом.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="takeaway-didi" class="content">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">📦 Диди — Вынос</span><span class="panel-sub">406 гостей | 918 497 ₽</span></div>
+      <div style="overflow-x:auto"><table class="data-table"><thead><tr><th>Мотив</th><th class="num">Гости</th><th class="num">∆г гости</th><th class="num">∆ план г.</th><th class="num">Выручка, ₽</th><th class="num">∆г выр.</th><th class="num">∆ план выр.</th></tr></thead><tbody>
+        <tr class="total-row"><td>Итого</td><td class="num">406</td><td class="num"><span class="delta neu">-1%</span></td><td class="num"><span class="delta up">+12%</span></td><td class="num">918 497</td><td class="num"><span class="delta up">+8%</span></td><td class="num"><span class="delta up">+15%</span></td></tr>
+        <tr><td>ВС-ЧТ 17–07</td><td class="num">103</td><td class="num"><span class="delta up">+10%</span></td><td class="num"><span class="delta up">+30%</span></td><td class="num">236 312</td><td class="num"><span class="delta up">+26%</span></td><td class="num"><span class="delta up">+35%</span></td></tr>
+        <tr><td>ПТ-СБ 17–07</td><td class="num">95</td><td class="num"><span class="delta up">+3%</span></td><td class="num"><span class="delta up">+11%</span></td><td class="num">209 901</td><td class="num"><span class="delta up">+21%</span></td><td class="num"><span class="delta up">+30%</span></td></tr>
+        <tr><td>ПН-ПТ 07–17</td><td class="num">126</td><td class="num"><span class="delta down">-10%</span></td><td class="num"><span class="delta up">+6%</span></td><td class="num">263 889</td><td class="num"><span class="delta down">-8%</span></td><td class="num"><span class="delta neu">-1%</span></td></tr>
+        <tr><td>СБ-ВС 07–17</td><td class="num">82</td><td class="num"><span class="delta down">-2%</span></td><td class="num"><span class="delta up">+3%</span></td><td class="num">208 395</td><td class="num"><span class="delta up">+1%</span></td><td class="num"><span class="delta up">+8%</span></td></tr>
+      </tbody></table></div>
+      <div class="charts-row"><div class="chart-wrap"><div class="chart-title">Гости по мотивам</div><canvas id="tak-didi-pie"></canvas></div><div class="chart-wrap"><div class="chart-title">∆ год: гости vs выручка %</div><canvas id="tak-didi-bar"></canvas></div></div>
+      <div class="insights">
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Лучший вынос в сети</div><div class="insight-body">+8% выручки к году, +15% к плану. Все вечерние мотивы в глубоком плюсе.</div></div>
+        <div class="insight"><div class="insight-icon">🟢</div><div class="insight-title">Весь вечерний блок растёт</div><div class="insight-body">ВС-ЧТ +26% выр., ПТ-СБ +21% выр. Диди доминирует по вечернему выносу.</div></div>
+        <div class="insight"><div class="insight-icon">📊</div><div class="insight-title">Будний день под давлением</div><div class="insight-body">ПН-ПТ -10% гостей, план почти выполнен. Пока некритично, нужен мониторинг.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Сводная таблица — Вынос</div>
+  <div style="padding:0 20px 20px"><div class="panel"><div style="overflow-x:auto" class="net-table-wrap">
+    <table class="data-table net-table"><thead><tr>
+      <th>Мотив</th><th class="num">Центр г.</th><th class="num">∆г</th><th class="num">Романи г.</th><th class="num">∆г</th><th class="num">Меоре г.</th><th class="num">∆г</th><th class="num">Диди г.</th><th class="num">∆г</th>
+    </tr></thead><tbody>
+      <tr class="total-row"><td>Итого</td><td class="num">173</td><td class="num"><span class="delta down">-36%</span></td><td class="num">449</td><td class="num"><span class="delta neu">-2%</span></td><td class="num">302</td><td class="num"><span class="delta down">-4%</span></td><td class="num">406</td><td class="num"><span class="delta neu">-1%</span></td></tr>
+      <tr><td>ВС-ЧТ 17–07</td><td class="num">52</td><td class="num"><span class="delta down">-45%</span></td><td class="num">118</td><td class="num"><span class="delta down">-25%</span></td><td class="num">85</td><td class="num"><span class="delta up">+23%</span></td><td class="num">103</td><td class="num"><span class="delta up">+10%</span></td></tr>
+      <tr><td>ПТ-СБ 17–07</td><td class="num">32</td><td class="num"><span class="delta down">-56%</span></td><td class="num">101</td><td class="num"><span class="delta up">+80%</span></td><td class="num">56</td><td class="num"><span class="delta down">-16%</span></td><td class="num">95</td><td class="num"><span class="delta up">+3%</span></td></tr>
+      <tr><td>ПН-ПТ 07–17</td><td class="num">60</td><td class="num"><span class="delta down">-10%</span></td><td class="num">131</td><td class="num"><span class="delta down">-11%</span></td><td class="num">88</td><td class="num"><span class="delta down">-25%</span></td><td class="num">126</td><td class="num"><span class="delta down">-10%</span></td></tr>
+      <tr><td>СБ-ВС 07–17</td><td class="num">29</td><td class="num"><span class="delta down">-22%</span></td><td class="num">99</td><td class="num"><span class="delta up">+4%</span></td><td class="num">73</td><td class="num"><span class="delta up">+22%</span></td><td class="num">82</td><td class="num"><span class="delta down">-2%</span></td></tr>
+    </tbody></table>
+  </div></div></div>
+</div>
+
+<script>
+(function(){
+  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  t&&t.addEventListener('click',()=>{
+    d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);
+    t.innerHTML=d==='dark'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  });
+})();
+
+function setDiv(div){
+  document.querySelectorAll('.div-tab').forEach((t,i)=>{t.classList.toggle('active',['hall','delivery','takeaway'][i]===div)});
+  ['hall','delivery','takeaway'].forEach(d=>{const el=document.getElementById('div-'+d);if(el)el.style.display=d===div?'block':'none';});
+}
+
+function setRest(div,rest){
+  document.querySelectorAll('#div-'+div+' .rest-tab').forEach((t,i)=>{t.classList.toggle('active',['tsentr','romani','meore','didi'][i]===rest)});
+  document.querySelectorAll('#div-'+div+' .kpi-card').forEach((c,i)=>{c.classList.toggle('active',['tsentr','romani','meore','didi'][i]===rest)});
+  document.querySelectorAll('#div-'+div+' .content').forEach(c=>c.classList.remove('active'));
+  const target=document.getElementById(div+'-'+rest);
+  if(target)target.classList.add('active');
+  setTimeout(()=>initCharts(div,rest),50);
+}
+
+const MOTIVES=['ВС-ЧТ 17–07','ПТ-СБ 17–07','ПН-ПТ 07–17','СБ-ВС 07–17'];
+const PIE_COLORS=['#01696f','#437a22','#da7101','#006494'];
+
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()||'#999'}
+
+function makePie(id,data){
+  const el=document.getElementById(id);if(!el||el._c)return;
+  el._c=new Chart(el,{type:'doughnut',data:{labels:MOTIVES,datasets:[{data,backgroundColor:PIE_COLORS,borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'right',labels:{font:{size:10},boxWidth:10}}}}});
+}
+function makeBar(id,gD,rD){
+  const el=document.getElementById(id);if(!el||el._c)return;
+  const ds=rD?[
+    {label:'Гости %',data:gD,backgroundColor:'rgba(1,105,111,.75)',borderRadius:3},
+    {label:'Выручка %',data:rD,backgroundColor:'rgba(67,122,34,.75)',borderRadius:3}
+  ]:[{label:'∆ к году %',data:gD,backgroundColor:gD.map(v=>v>=0?'rgba(67,122,34,.8)':'rgba(161,53,68,.8)'),borderRadius:3}];
+  el._c=new Chart(el,{type:'bar',data:{labels:MOTIVES,datasets:ds},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:!!rD,labels:{font:{size:10},boxWidth:10}}},scales:{y:{grid:{color:'rgba(128,128,128,.12)'},ticks:{font:{size:10},callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:9}}}}}});
+}
+
+const DATA={
+  hall:{pie:{tsentr:[3473201,1610972,2577106,1508476],romani:[2138829,1502503,1403178,1282121],meore:[2231178,1181688,1322463,1320186],didi:[2393453,1532084,1713591,1557930]},bar:{tsentr:[7,12,6,20],romani:[-6,73,-23,6],meore:[0,-4,-9,9],didi:[24,-3,-19,1]}},
+  delivery:{pie:{tsentr:[156,122,155,97],romani:[133,94,119,83],meore:[212,116,137,112],didi:[596,397,613,458]},gbar:{tsentr:[-7,-24,-13,-36],romani:[-32,38,-17,-23],meore:[-5,-28,-21,-24],didi:[23,-14,-15,11]},rbar:{tsentr:[14,-26,-9,-35],romani:[-24,53,-23,-26],meore:[8,-20,-15,-30],didi:[23,-14,-15,11]}},
+  takeaway:{pie:{tsentr:[52,32,60,29],romani:[118,101,131,99],meore:[85,56,88,73],didi:[103,95,126,82]},gbar:{tsentr:[-45,-56,-10,-22],romani:[-25,80,-11,4],meore:[23,-16,-25,22],didi:[10,3,-10,-2]},rbar:{tsentr:[-50,-46,-6,-40],romani:[-24,49,21,10],meore:[8,7,-21,53],didi:[26,21,-8,1]}}
+};
+
+function initCharts(div,rest){
+  const d=DATA[div];
+  if(div==='hall'){makePie('hall-'+rest+'-pie',d.pie[rest]);makeBar('hall-'+rest+'-bar',d.bar[rest],null);}
+  if(div==='delivery'){makePie('del-'+rest+'-pie',d.pie[rest]);makeBar('del-'+rest+'-bar',d.gbar[rest],d.rbar[rest]);}
+  if(div==='takeaway'){makePie('tak-'+rest+'-pie',d.pie[rest]);makeBar('tak-'+rest+'-bar',d.gbar[rest],d.rbar[rest]);}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  setDiv('hall');
+  setTimeout(()=>initCharts('hall','tsentr'),150);
+});
+</script>
+</body>
+</html>
