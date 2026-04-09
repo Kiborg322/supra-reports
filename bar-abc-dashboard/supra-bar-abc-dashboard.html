@@ -553,7 +553,7 @@ const chart1=new Chart(ctx1,{
     }]
   },
   options:{
-    indexAxis:"y",responsive:true,maintainAspectRatio:false,
+    indexAxis:"y",responsive>true,maintainAspectRatio:false,
     plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>" "+fmt(ctx.raw)+" ₽"}}},
     scales:{
       x:{grid:{color:getColors().grid},ticks:{callback:v=>fmt(v)+" ₽",font:{size:10}}},
