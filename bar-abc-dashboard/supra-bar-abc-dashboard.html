@@ -1,1 +1,569 @@
-PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9InJ1IiBkYXRhLXRoZW1lPSJkYXJrIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgo8dGl0bGU+QUJDLdCQ0L3QsNC70LjQtyDQkdCw0YDQsCDigJQg0KHRg9C/0YDQsDwvdGl0bGU+CjxsaW5rIHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbSI+CjxsaW5rIHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nc3RhdGljLmNvbSIgY3Jvc3NvcmlnaW4+CjxsaW5rIGhyZWY9Imh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzMj9mYW1pbHk9SW50ZXI6d2dodEAzMDAuLjcwMCZmYW1pbHk9UGxheWZhaXIrRGlzcGxheTp3Z2h0QDYwMDs3MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiPgo8c2NyaXB0IHNyYz0iaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9jaGFydC5qcyI+PC9zY3JpcHQ+CjxzdHlsZT4KKiwqOjpiZWZvcmUsKjo6YWZ0ZXJ7Ym94LXNpemluZzpib3JkZXItYm94O21hcmdpbjowO3BhZGRpbmc6MH0KOnJvb3QsW2RhdGEtdGhlbWU9ImxpZ2h0Il17CiAgLS1iZzojZjdmNmYyOy0tc3VyZmFjZTojZjlmOGY1Oy0tc3VyZmFjZS0yOiNmYmZiZjk7LS1zdXJmYWNlLW9mZjojZjNmMGVjOy0tc3VyZmFjZS1vZmYyOiNlZGVhZTU7LS1kaXZpZGVyOiNkY2Q5ZDU7LS1ib3JkZXI6I2Q0ZDFjYTsKICAtLXRleHQ6IzI4MjUxZDstLW11dGVkOiM3YTc5NzQ7LS1mYWludDojYmFiOWI0Oy0taW52OiNmOWY4ZjQ7CiAgLS1wcmltYXJ5OiMwMTY5NmY7LS1wcmltYXJ5LWg6IzBjNGU1NDstLXByaW1hcnktaGw6I2NlZGNkODsKICAtLWdvbGQ6I2QxOTkwMDstLWdvbGQtaGw6I2U5ZTBjNjsKICAtLXN1Y2Nlc3M6IzQzN2EyMjstLXN1Y2Nlc3MtaGw6I2Q0ZGZjYzsKICAtLWVycm9yOiNhMTJjN2I7LS1lcnJvci1obDojZTBjZWQ3OwogIC0tb3JhbmdlOiNkYTcxMDE7LS1vcmFuZ2UtaGw6I2U3ZDdjNDsKICAtLXNoYWRvdy1zbTowIDFweCAycHggb2tsY2goMC4yIDAuMDEgODAvMC4wNik7CiAgLS1zaGFkb3ctbWQ6MCA0cHggMTJweCBva2xjaCgwLjIgMC4wMSA4MC8wLjA4KTsKICAtLXNoYWRvdy1sZzowIDEycHggMzJweCBva2xjaCgwLjIgMC4wMSA4MC8wLjEyKTsKICAtLXItc206MC4zNzVyZW07LS1yLW1kOjAuNXJlbTstLXItbGc6MC43NXJlbTstLXIteGw6MXJlbTsKICAtLWZvbnQtYm9keTonSW50ZXInLHNhbnMtc2VyaWY7LS1mb250LWRpc3BsYXk6J1BsYXlmYWlyIERpc3BsYXknLEdlb3JnaWEsc2VyaWY7CiAgLS10ZXh0LXhzOmNsYW1wKDAuNzVyZW0sMC43cmVtKzAuMjV2dywwLjg3NXJlbSk7CiAgLS10ZXh0LXNtOmNsYW1wKDAuODc1cmVtLDAuOHJlbSswLjM1dncsMXJlbSk7CiAgLS10ZXh0LWJhc2U6Y2xhbXAoMXJlbSwwLjk1cmVtKzAuMjV2dywxLjEyNXJlbSk7CiAgLS10ZXh0LWxnOmNsYW1wKDEuMTI1cmVtLDFyZW0rMC43NXZ3LDEuNXJlbSk7CiAgLS10ZXh0LXhsOmNsYW1wKDEuNXJlbSwxLjJyZW0rMS4yNXZ3LDIuMjVyZW0pOwp9CltkYXRhLXRoZW1lPSJkYXJrIl17CiAgLS1iZzojMTcxNjE0Oy0tc3VyZmFjZTojMWMxYjE5Oy0tc3VyZmFjZS0yOiMyMDFmMWQ7LS1zdXJmYWNlLW9mZjojMWQxYzFhOy0tc3VyZmFjZS1vZmYyOiMyMjIxMWY7LS1kaXZpZGVyOiMyNjI1MjM7LS1ib3JkZXI6IzM5MzgzNjsKICAtLXRleHQ6I2NkY2NjYTstLW11dGVkOiM3OTc4NzY7LS1mYWludDojNWE1OTU3Oy0taW52OiMyYjJhMjg7CiAgLS1wcmltYXJ5OiM0Zjk4YTM7LS1wcmltYXJ5LWg6IzIyN2Y4YjstLXByaW1hcnktaGw6IzMxM2IzYjsKICAtLWdvbGQ6I2U4YWYzNDstLWdvbGQtaGw6IzRkNDMzMjsKICAtLXN1Y2Nlc3M6IzZkYWE0NTstLXN1Y2Nlc3MtaGw6IzNhNDQzNTsKICAtLWVycm9yOiNkMTYzYTc7LS1lcnJvci1obDojNGMzZDQ2OwogIC0tb3JhbmdlOiNmZGFiNDM7LS1vcmFuZ2UtaGw6IzU2NGIzZTsKICAtLXNoYWRvdy1zbTowIDFweCAycHggb2tsY2goMCAwIDAvMC4yKTsKICAtLXNoYWRvdy1tZDowIDRweCAxMnB4IG9rbGNoKDAgMCAwLzAuMyk7CiAgLS1zaGFkb3ctbGc6MCAxMnB4IDMycHggb2tsY2goMCAwIDAvMC40KTsKfQpodG1sey13ZWJraXQtZm9udC1zbW9vdGhpbmc6YW50aWFsaWFzZWQ7c2Nyb2xsLWJlaGF2aW9yOnNtb290aH0KYm9keXttaW4taGVpZ2h0OjEwMGR2aDtmb250LWZhbWlseTp2YXIoLS1mb250LWJvZHkpO2ZvbnQtc2l6ZTp2YXIoLS10ZXh0LXNtKTtjb2xvcjp2YXIoLS10ZXh0KTtiYWNrZ3JvdW5kOnZhcigtLWJnKTtsaW5lLWhlaWdodDoxLjZ9CnRhYmxle2JvcmRlci1jb2xsYXBzZTpjb2xsYXBzZTt3aWR0aDoxMDAlfQpidXR0b257Y3Vyc29yOnBvaW50ZXI7YmFja2dyb3VuZDpub25lO2JvcmRlcjpub25lO2ZvbnQ6aW5oZXJpdDtjb2xvcjppbmhlcml0fQphLGJ1dHRvbixbcm9sZT0iYnV0dG9uIl17dHJhbnNpdGlvbjpjb2xvciAxODBtcyxiYWNrZ3JvdW5kIDE4MG1zLGJvcmRlci1jb2xvciAxODBtcyxib3gtc2hhZG93IDE4MG1zfQoKLyogTEFZT1VUICovCi5wYWdle21heC13aWR0aDoxNDAwcHg7bWFyZ2luOjAgYXV0bztwYWRkaW5nOjEuNXJlbSAxcmVtfQpoZWFkZXJ7ZGlzcGxheTpmbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtqdXN0aWZ5LWNvbnRlbnQ6c3BhY2UtYmV0d2VlbjtnYXA6MXJlbTtwYWRkaW5nOjFyZW0gMS41cmVtO2JhY2tncm91bmQ6dmFyKC0tc3VyZmFjZSk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgdmFyKC0tYm9yZGVyKTtwb3NpdGlvbjpzdGlja3k7dG9wOjA7ei1pbmRleDoxMDA7Ym94LXNoYWRvdzp2YXIoLS1zaGFkb3ctc20pfQoubG9nb3tkaXNwbGF5OmZsZXg7YWxpZ24taXRlbXM6Y2VudGVyO2dhcDouNzVyZW19Ci5sb2dvIHN2Z3tjb2xvcjp2YXIoLS1wcmltYXJ5KX0KLmxvZ28tdGV4dHtmb250LWZhbWlseTp2YXIoLS1mb250LWRpc3BsYXkpO2ZvbnQtc2l6ZToxLjI1cmVtO2ZvbnQtd2VpZ2h0OjcwMH0KLmxvZ28tc3Vie2ZvbnQtc2l6ZTp2YXIoLS10ZXh0LXhzKTtjb2xvcjp2YXIoLS1tdXRlZCl9Ci5oZWFkZXItcmlnaHR7ZGlzcGxheTpmbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtnYXA6Ljc1cmVtfQoucGVyaW9kLWJhZGdle2ZvbnQtc2l6ZTp2YXIoLS10ZXh0LXhzKTtjb2xvcjp2YXIoLS1tdXRlZCk7YmFja2dyb3VuZDp2YXIoLS1zdXJmYWNlLW9mZik7Ym9yZGVyOjFweCBzb2xpZCB2YXIoLS1ib3JkZXIpO3BhZGRpbmc6LjI1cmVtIC43NXJlbTtib3JkZXItcmFkaXVzOjk5OTlweH0KLnRoZW1lLWJ0bnt3aWR0aDozNnB4O2hlaWdodDozNnB4O2JvcmRlci1yYWRpdXM6NTAlO2Rpc3BsYXk6ZmxleDthbGlnbi1pdGVtczpjZW50ZXI7anVzdGlmeS1jb250ZW50OmNlbnRlcjtiYWNrZ3JvdW5kOnZhcigtLXN1cmZhY2Utb2ZmKTtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWJvcmRlcik7Y29sb3I6dmFyKC0tbXV0ZWQpfQoudGhlbWUtYnRuOmhvdmVye2NvbG9yOnZhcigtLXRleHQpO2JhY2tncm91bmQ6dmFyKC0tc3VyZmFjZS1vZmYyKX0KCi8qIEtQSSBDQVJEUyAqLwoua3BpLWdyaWR7ZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczpyZXBlYXQoYXV0by1maWxsLG1pbm1heCgyMDBweCwxZnIpKTtnYXA6MXJlbTttYXJnaW46MS41cmVtIDB9Ci5rcGl7YmFja2dyb3VuZDp2YXIoLS1zdXJmYWNlKTtib3JkZXI6MXB4IHNvbGlkIHZhcigtLWJvcmRlcik7Ym9yZGVyLXJhZGl1czp2YXIoLS1yLWxnKTtwYWRkaW5nOjEuMjVyZW0gMS41cmVtO2JveC1zaGFkb3c6dmFyKC0tc2hhZG93LXNtKX0KLmtwaS1sYWJlbHtmb250LXNpemU6dmFyKC0tdGV4dC14cyk7Y29sb3I6dmFyKC0tbXV0ZWQpO3RleHQtdHJhbnNmb3JtOnVwcGVyY2FzZTtsZXR0ZXItc3BhY2luZzouMDZlbTttYXJnaW4tYm90dG9tOi4zNXJlbX0KLmtwaS12YWx1ZXtmb250LXNpemU6dmFyKC0tdGV4dC14bCk7Zm9udC13ZWlnaHQ6NzAwO2xpbmUtaGVpZ2h0OjEuMTtmb250LXZhcmlhbnQtbnVtZXJpYzp0YWJ1bGFyLW51bXMgbGluaW5nLW51bXN9Ci5rcGktc3Vie2ZvbnQtc2l6ZTp2YXIoLS10ZXh0LXhzKTtjb2xvcjp2YXIoLS1tdXRlZCk7bWFyZ2luLXRvcDouMjVyZW19Ci5rcGkuYWNjZW50IC5rcGktdmFsdWV7Y29sb3I6dmFyKC0tcHJpbWFyeSl9Ci5rcGkuZ29sZCAua3BpLXZhbHVle2NvbG9yOnZhcigtLWdvbGQpfQoua3BpLnN1Y2Nlc3MgLmtwaS12YWx1ZXtjb2xvcjp2YXIoLS1zdWNjZXNzKX0KLmtwaS5vcmFuZ2UgLmtwaS12YWx1ZXtjb2xvcjp2YXIoLS1vcmFuZ2UpfQoKLyogVEFCUyAqLwoudGFic3tkaXNwbGF5OmZsZXg7Z2FwOi4yNXJlbTttYXJnaW46MS41cmVtIDAgMXJlbTtib3JkZXItYm90dG9tOjFweCBzb2xpZCB2YXIoLS1ib3JkZXIpO3BhZGRpbmctYm90dG9tOjB9Ci50YWJ7cGFkZGluZzouNXJlbSAxLjI1cmVtO2ZvbnQtc2l6ZTp2YXIoLS10ZXh0LXNtKTtjb2xvcjp2YXIoLS1tdXRlZCk7Y3Vyc29yOnBvaW50ZXI7Ym9yZGVyLWJvdHRvbToycHggc29saWQgdHJhbnNwYXJlbnQ7bWFyZ2luLWJvdHRvbTotMXB4O2JvcmRlci1yYWRpdXM6dmFyKC0tci1zbSkgdmFyKC0tci1zbSkgMCAwO3RyYW5zaXRpb246YWxsIDE4MG1zO2ZvbnQtd2VpZ2h0OjUwMH0KLnRhYjpob3Zlcntjb2xvcjp2YXIoLS10ZXh0KTtiYWNrZ3JvdW5kOnZhcigtLXN1cmZhY2Utb2ZmKX0KLnRhYi5hY3RpdmV7Y29sb3I6dmFyKC0tcHJpbWFyeSk7Ym9yZGVyLWJvdHRvbS1jb2xvcjp2YXIoLS1wcmltYXJ5KTtiYWNrZ3JvdW5kOnZhcigtLXN1cmZhY2Utb2ZmKX0KLnRhYi1jb3VudHtkaXNwbGF5OmlubGluZS1mbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtqdXN0aWZ5LWNvbnRlbnQ6Y2VudGVyO2ZvbnQtc2l6ZTouNjVyZW07YmFja2dyb3VuZDp2YXIoLS1zdXJmYWNlLW9mZjIpO2NvbG9yOnZhcigtLW11dGVkKTtib3JkZXItcmFkaXVzOjk5OTlweDtwYWRkaW5nOi4xcmVtIC40NXJlbTttYXJnaW4tbGVmdDouNHJlbTtmb250LXdlaWdodDo2MDB9Ci50YWIuYWN0aXZlIC50YWItY291bnR7YmFja2dyb3VuZDp2YXIoLS1wcmltYXJ5LWhsKTtjb2xvcjp2YXIoLS1wcmltYXJ5KX0KCi8qIFNFQ1RJT04gVElUTEUgKi8KLnNlY3Rpb24tdGl0bGV7Zm9udC1zaXplOnZhcigtLXRleHQtbGcpO2ZvbnQtd2VpZ2h0OjcwMDttYXJnaW46MS41cmVtIDAgLjc1cmVtO2Rpc3BsYXk6ZmxleDthbGlnbi1pdGVtczpjZW50ZXI7Z2FwOi41cmVtfQouc2VjdGlvbi1iYWRnZXtmb250LXNpemU6dmFyKC0tdGV4dC14cyk7Zm9udC13ZWlnaHQ6NTAwO3BhZGRpbmc6LjE1cmVtIC42cmVtO2JvcmRlci1yYWRpdXM6OTk5OXB4fQouYmFkZ2UtZ29sZHtiYWNrZ3JvdW5kOnZhcigtLWdvbGQtaGwpO2NvbG9yOnZhcigtLWdvbGQpfQouYmFkZ2Utc3VjY2Vzc3tiYWNrZ3JvdW5kOnZhcigtLXN1Y2Nlc3MtaGwpO2NvbG9yOnZhcigtLXN1Y2Nlc3MpfQouYmFkZ2UtZXJyb3J7YmFja2dyb3VuZDp2YXIoLS1lcnJvci1obCk7Y29sb3I6dmFyKC0tZXJyb3IpfQouYmFkZ2Utb3Jhbmdle2JhY2tncm91bmQ6dmFyKC0tb3JhbmdlLWhsKTtjb2xvcjp2YXIoLS1vcmFuZ2UpfQouYmFkZ2UtcHJpbWFyeXtiYWNrZ3JvdW5kOnZhcigtLXByaW1hcnktaGwpO2NvbG9yOnZhcigtLXByaW1hcnkpfQouYmFkZ2UtbXV0ZWR7YmFja2dyb3VuZDp2YXIoLS1zdXJmYWNlLW9mZjIpO2NvbG9yOnZhcigtLW11dGVkKX0KCi8qIENIQVJUUyBHUklEICovCi5jaGFydHMtZ3JpZHtkaXNwbGF5OmdyaWQ7Z3JpZC10ZW1wbGF0ZS1jb2x1bW5zOjFmciAxZnI7Z2FwOjFyZW07bWFyZ2luOjFyZW0gMH0KLmNoYXJ0cy1ncmlkLTN7ZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczoyZnIgMWZyIDFmcjtnYXA6MXJlbTttYXJnaW46MXJlbSAwfQouY2hhcnQtY2FyZHtiYWNrZ3JvdW5kOnZhcigtLXN1cmZhY2UpO2JvcmRlcjoxcHggc29saWQgdmFyKC0tYm9yZGVyKTtib3JkZXItcmFkaXVzOnZhcigtLXItbGcpO3BhZGRpbmc6MS4yNXJlbTtib3gtc2hhZG93OnZhcigtLXNoYWRvdy1zbSl9Ci5jaGFydC10aXRsZXtmb250LXNpemU6dmFyKC0tdGV4dC1zbSk7Zm9udC13ZWlnaHQ6NjAwO21hcmdpbi1ib3R0b206MXJlbTtjb2xvcjp2YXIoLS10ZXh0KX0KLmNoYXJ0LXdyYXB7cG9zaXRpb246cmVsYXRpdmU7aGVpZ2h0OjI2MHB4fQouY2hhcnQtd3JhcC1zbXtwb3NpdGlvbjpyZWxhdGl2ZTtoZWlnaHQ6MjIwcHh9CgovKiBUQUJMRSAqLwoudGFibGUtd3JhcHtvdmVyZmxvdy14OmF1dG87Ym9yZGVyOjFweCBzb2xpZCB2YXIoLS1ib3JkZXIpO2JvcmRlci1yYWRpdXM6dmFyKC0tci1sZyk7Ym94LXNoYWRvdzp2YXIoLS1zaGFkb3ctc20pO21hcmdpbi1ib3R0b206MS41cmVtfQouZGF0YS10YWJsZXt3aWR0aDoxMDAlO21pbi13aWR0aDo5MDBweH0KLmRhdGEtdGFibGUgdGhlYWR7YmFja2dyb3VuZDp2YXIoLS1zdXJmYWNlLW9mZik7cG9zaXRpb246c3RpY2t5O3RvcDowfQouZGF0YS10YWJsZSB0aHtwYWRkaW5nOi42NXJlbSAxcmVtO3RleHQtYWxpZ246bGVmdDtmb250LXNpemU6dmFyKC0tdGV4dC14cyk7Zm9udC13ZWlnaHQ6NjAwO2NvbG9yOnZhcigtLW11dGVkKTt0ZXh0LXRyYW5zZm9ybTp1cHBlcmNhc2U7bGV0dGVyLXNwYWNpbmc6LjA1ZW07d2hpdGUtc3BhY2U6bm93cmFwO2JvcmRlci1ib3R0b206MXB4IHNvbGlkIHZhcigtLWJvcmRlcil9Ci5kYXRhLXRhYmxlIHRke3BhZGRpbmc6LjZyZW0gMXJlbTtmb250LXNpemU6dmFyKC0tdGV4dC14cyk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgdmFyKC0tZGl2aWRlcik7d2hpdGUtc3BhY2U6bm93cmFwO2ZvbnQtdmFyaWFudC1udW1lcmljOnRhYnVsYXItbnVtcyBsaW5pbmctbnVtczt2ZXJ0aWNhbC1hbGlnbjptaWRkbGV9Ci5kYXRhLXRhYmxlIHRyOmxhc3QtY2hpbGQgdGR7Ym9yZGVyLWJvdHRvbTpub25lfQouZGF0YS10YWJsZSB0cjpob3ZlciB0ZHtiYWNrZ3JvdW5kOnZhcigtLXN1cmZhY2Utb2ZmKX0KLmRhdGEtdGFibGUgLm5hbWUtY29se3doaXRlLXNwYWNlOm5vcm1hbDttaW4td2lkdGg6MjIwcHg7bWF4LXdpZHRoOjI4MHB4O2ZvbnQtd2VpZ2h0OjUwMDtmb250LXNpemU6dmFyKC0tdGV4dC14cyl9Ci5kYXRhLXRhYmxlIC5udW0tcmlnaHR7dGV4dC1hbGlnbjpyaWdodH0KCi8qIFJBTksgQkFER0VTICovCi5yYW5re2Rpc3BsYXk6aW5saW5lLWZsZXg7YWxpZ24taXRlbXM6Y2VudGVyO2p1c3RpZnktY29udGVudDpjZW50ZXI7d2lkdGg6MjJweDtoZWlnaHQ6MjJweDtib3JkZXItcmFkaXVzOjUwJTtmb250LXNpemU6LjY1cmVtO2ZvbnQtd2VpZ2h0OjcwMH0KLnJhbmstQXtiYWNrZ3JvdW5kOnZhcigtLXN1Y2Nlc3MtaGwpO2NvbG9yOnZhcigtLXN1Y2Nlc3MpfQoucmFuay1Ce2JhY2tncm91bmQ6dmFyKC0tcHJpbWFyeS1obCk7Y29sb3I6dmFyKC0tcHJpbWFyeSl9Ci5yYW5rLUN7YmFja2dyb3VuZDp2YXIoLS1zdXJmYWNlLW9mZjIpO2NvbG9yOnZhcigtLW11dGVkKX0KCi8q
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC-Анализ Бара — Супра</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root,[data-theme="light"]{
+  --bg:#f7f6f2;--surface:#f9f8f5;--surface-2:#fbfbf9;--surface-off:#f3f0ec;--surface-off2:#edeae5;--divider:#dcd9d5;--border:#d4d1ca;
+  --text:#28251d;--muted:#7a7974;--faint:#bab9b4;--inv:#f9f8f4;
+  --primary:#01696f;--primary-h:#0c4e54;--primary-hl:#cedcd8;
+  --gold:#d19900;--gold-hl:#e9e0c6;
+  --success:#437a22;--success-hl:#d4dfcc;
+  --error:#a12c7b;--error-hl:#e0ced7;
+  --orange:#da7101;--orange-hl:#e7d7c4;
+  --shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);
+  --shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);
+  --shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);
+  --r-sm:0.375rem;--r-md:0.5rem;--r-lg:0.75rem;--r-xl:1rem;
+  --font-body:'Inter',sans-serif;--font-display:'Playfair Display',Georgia,serif;
+  --text-xs:clamp(0.75rem,0.7rem+0.25vw,0.875rem);
+  --text-sm:clamp(0.875rem,0.8rem+0.35vw,1rem);
+  --text-base:clamp(1rem,0.95rem+0.25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem+0.75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem+1.25vw,2.25rem);
+}
+[data-theme="dark"]{
+  --bg:#171614;--surface:#1c1b19;--surface-2:#201f1d;--surface-off:#1d1c1a;--surface-off2:#22211f;--divider:#262523;--border:#393836;
+  --text:#cdccca;--muted:#797876;--faint:#5a5957;--inv:#2b2a28;
+  --primary:#4f98a3;--primary-h:#227f8b;--primary-hl:#313b3b;
+  --gold:#e8af34;--gold-hl:#4d4332;
+  --success:#6daa45;--success-hl:#3a4435;
+  --error:#d163a7;--error-hl:#4c3d46;
+  --orange:#fdab43;--orange-hl:#564b3e;
+  --shadow-sm:0 1px 2px oklch(0 0 0/0.2);
+  --shadow-md:0 4px 12px oklch(0 0 0/0.3);
+  --shadow-lg:0 12px 32px oklch(0 0 0/0.4);
+}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-sm);color:var(--text);background:var(--bg);line-height:1.6}
+table{border-collapse:collapse;width:100%}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+a,button,[role="button"]{transition:color 180ms,background 180ms,border-color 180ms,box-shadow 180ms}
+
+.page{max-width:1400px;margin:0 auto;padding:1.5rem 1rem}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.5rem;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:var(--shadow-sm)}
+.logo{display:flex;align-items:center;gap:.75rem}
+.logo svg{color:var(--primary)}
+.logo-text{font-family:var(--font-display);font-size:1.25rem;font-weight:700}
+.logo-sub{font-size:var(--text-xs);color:var(--muted)}
+.header-right{display:flex;align-items:center;gap:.75rem}
+.period-badge{font-size:var(--text-xs);color:var(--muted);background:var(--surface-off);border:1px solid var(--border);padding:.25rem .75rem;border-radius:9999px}
+.theme-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surface-off);border:1px solid var(--border);color:var(--muted)}
+.theme-btn:hover{color:var(--text);background:var(--surface-off2)}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem 1.5rem;box-shadow:var(--shadow-sm)}
+.kpi-label{font-size:var(--text-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.kpi-value{font-size:var(--text-xl);font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
+.kpi-sub{font-size:var(--text-xs);color:var(--muted);margin-top:.25rem}
+.kpi.accent .kpi-value{color:var(--primary)}
+.kpi.gold .kpi-value{color:var(--gold)}
+.kpi.success .kpi-value{color:var(--success)}
+.kpi.orange .kpi-value{color:var(--orange)}
+
+.tabs{display:flex;gap:.25rem;margin:1.5rem 0 1rem;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab{padding:.5rem 1.25rem;font-size:var(--text-sm);color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;border-radius:var(--r-sm) var(--r-sm) 0 0;transition:all 180ms;font-weight:500}
+.tab:hover{color:var(--text);background:var(--surface-off)}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary);background:var(--surface-off)}
+.tab-count{display:inline-flex;align-items:center;justify-content:center;font-size:.65rem;background:var(--surface-off2);color:var(--muted);border-radius:9999px;padding:.1rem .45rem;margin-left:.4rem;font-weight:600}
+.tab.active .tab-count{background:var(--primary-hl);color:var(--primary)}
+
+.section-title{font-size:var(--text-lg);font-weight:700;margin:1.5rem 0 .75rem;display:flex;align-items:center;gap:.5rem}
+.section-badge{font-size:var(--text-xs);font-weight:500;padding:.15rem .6rem;border-radius:9999px}
+.badge-gold{background:var(--gold-hl);color:var(--gold)}
+.badge-success{background:var(--success-hl);color:var(--success)}
+.badge-error{background:var(--error-hl);color:var(--error)}
+.badge-orange{background:var(--orange-hl);color:var(--orange)}
+.badge-primary{background:var(--primary-hl);color:var(--primary)}
+.badge-muted{background:var(--surface-off2);color:var(--muted)}
+
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.charts-grid-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem;margin:1rem 0}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem;box-shadow:var(--shadow-sm)}
+.chart-title{font-size:var(--text-sm);font-weight:600;margin-bottom:1rem;color:var(--text)}
+.chart-wrap{position:relative;height:260px}
+.chart-wrap-sm{position:relative;height:220px}
+
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);margin-bottom:1.5rem;max-height:520px;overflow-y:auto}
+.data-table{width:100%;min-width:900px}
+.data-table thead{background:var(--surface-off);position:sticky;top:0}
+.data-table th{padding:.65rem 1rem;text-align:left;font-size:var(--text-xs);font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;border-bottom:1px solid var(--border)}
+.data-table td{padding:.6rem 1rem;font-size:var(--text-xs);border-bottom:1px solid var(--divider);white-space:nowrap;font-variant-numeric:tabular-nums lining-nums;vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--surface-off)}
+.data-table .name-col{white-space:normal;min-width:220px;max-width:280px;font-weight:500;font-size:var(--text-xs)}
+.data-table .num-right{text-align:right}
+
+.rank{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:.65rem;font-weight:700}
+.rank-A{background:var(--success-hl);color:var(--success)}
+.rank-B{background:var(--primary-hl);color:var(--primary)}
+.rank-C{background:var(--surface-off2);color:var(--muted)}
+
+.star-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:600;padding:.15rem .55rem;border-radius:9999px}
+.star-zvezdy{background:var(--gold-hl);color:var(--gold)}
+.star-loshadki{background:var(--primary-hl);color:var(--primary)}
+.star-zagadki{background:var(--error-hl);color:var(--error)}
+.star-sobaki{background:var(--surface-off2);color:var(--muted)}
+
+.welcome-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:600;padding:.15rem .55rem;border-radius:9999px}
+.w-zoloto{background:var(--gold-hl);color:var(--gold)}
+.w-muravi{background:var(--primary-hl);color:var(--primary)}
+.w-diri{background:var(--success-hl);color:var(--success)}
+.w-parusnik{background:var(--error-hl);color:var(--error)}
+.w-other{background:var(--surface-off2);color:var(--muted)}
+
+.row-top-margin{background:color-mix(in oklch,var(--gold) 6%,var(--surface))!important}
+.row-top-margin:hover td{background:color-mix(in oklch,var(--gold) 10%,var(--surface))!important}
+.row-star{background:color-mix(in oklch,var(--success) 5%,var(--surface))!important}
+.row-star:hover td{background:color-mix(in oklch,var(--success) 8%,var(--surface))!important}
+
+.tab-section{display:none}
+.tab-section.active{display:block}
+
+.insights{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.insight{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.25rem;box-shadow:var(--shadow-sm);border-left:3px solid var(--primary)}
+.insight.gold{border-left-color:var(--gold)}
+.insight.success{border-left-color:var(--success)}
+.insight.orange{border-left-color:var(--orange)}
+.insight-title{font-size:var(--text-xs);font-weight:700;color:var(--text);margin-bottom:.35rem;display:flex;align-items:center;gap:.4rem}
+.insight p{font-size:var(--text-xs);color:var(--muted);line-height:1.5}
+.insight strong{color:var(--text)}
+
+.vol-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin:.5rem 0 1rem}
+.vol-pill{font-size:var(--text-xs);padding:.25rem .75rem;border-radius:9999px;border:1px solid var(--border);background:var(--surface-off);color:var(--muted)}
+.vol-pill.active-vol{background:var(--primary-hl);border-color:var(--primary);color:var(--primary)}
+
+.gem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin:1rem 0 1.5rem}
+.gem-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1rem 1.25rem;box-shadow:var(--shadow-sm)}
+.gem-card.priority{border-color:var(--gold);background:color-mix(in oklch,var(--gold) 4%,var(--surface))}
+.gem-header{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.6rem}
+.gem-name{font-size:var(--text-xs);font-weight:600;color:var(--text);line-height:1.4}
+.gem-rank{font-size:.6rem;font-weight:700;padding:.15rem .5rem;border-radius:9999px;background:var(--primary-hl);color:var(--primary);white-space:nowrap}
+.gem-rank.c{background:var(--surface-off2);color:var(--muted)}
+.gem-margin{font-size:var(--text-lg);font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums}
+.gem-meta{display:flex;gap:.75rem;margin-top:.4rem;flex-wrap:wrap}
+.gem-meta span{font-size:.65rem;color:var(--muted)}
+.gem-meta strong{color:var(--text)}
+.gem-potential{margin-top:.6rem;padding:.5rem .75rem;background:var(--success-hl);border-radius:var(--r-sm);font-size:.65rem;color:var(--success);font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="Супра">
+      <rect width="32" height="32" rx="8" fill="currentColor" opacity=".12"/>
+      <path d="M8 22 C8 22 10 10 16 10 C22 10 24 22 24 22" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <circle cx="16" cy="10" r="2" fill="currentColor"/>
+      <path d="M12 17 L20 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="logo-text">Супра</div>
+      <div class="logo-sub">ABC-Анализ Бара</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="period-badge">Апрель 2026</span>
+    <button class="theme-btn" data-theme-toggle aria-label="Переключить тему">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="page">
+
+<!-- KPI -->
+<div class="kpi-grid">
+  <div class="kpi accent">
+    <div class="kpi-label">Общая выручка</div>
+    <div class="kpi-value">753 820 ₽</div>
+    <div class="kpi-sub">58 позиций в ассортименте</div>
+  </div>
+  <div class="kpi gold">
+    <div class="kpi-label">Валовая маржа</div>
+    <div class="kpi-value">494 371 ₽</div>
+    <div class="kpi-sub">Средняя наценка 190%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Средний чек позиции</div>
+    <div class="kpi-value">12 997 ₽</div>
+    <div class="kpi-sub">по выручке</div>
+  </div>
+  <div class="kpi success">
+    <div class="kpi-label">Позиций ABC=A</div>
+    <div class="kpi-value">11</div>
+    <div class="kpi-sub">дают 80% выручки</div>
+  </div>
+  <div class="kpi orange">
+    <div class="kpi-label">Позиций ABC=B</div>
+    <div class="kpi-value">12</div>
+    <div class="kpi-sub">дают 15% выручки</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Позиций ABC=C</div>
+    <div class="kpi-value">35</div>
+    <div class="kpi-sub">дают 5% выручки</div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="section-title">💡 Ключевые инсайты</div>
+<div class="insights">
+  <div class="insight gold">
+    <div class="insight-title">🥇 Флагман бара</div>
+    <p>Супра Саперави 750 мл — <strong>85 514 ₽ маржи</strong>, 60 бутылок. Топ-1 по всем метрикам.</p>
+  </div>
+  <div class="insight gold">
+    <div class="insight-title">🔥 Скрытый гигант</div>
+    <p>Асканели Брют 750 мл — <strong>3 520 ₽/шт</strong>, всего 1 продажа. Огромный потенциал при продвижении.</p>
+  </div>
+  <div class="insight success">
+    <div class="insight-title">⭐ Звёзды B-категории</div>
+    <p>Вазиери Пиросмани и Шилдис Цинандали — маржа <strong>1 570–1 637 ₽/шт</strong> при умеренных продажах.</p>
+  </div>
+  <div class="insight">
+    <div class="insight-title">🍾 Бокалы vs Бутылки</div>
+    <p>Бутылки дают <strong>73% маржи</strong> при 38% объёме продаж. Апселл на бутылку = рост маржи.</p>
+  </div>
+</div>
+
+<!-- CHARTS -->
+<div class="section-title">📊 Аналитика</div>
+<div class="charts-grid-3">
+  <div class="chart-card">
+    <div class="chart-title">Топ-10 по валовой марже (₽)</div>
+    <div class="chart-wrap"><canvas id="chartTop10"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">ABC-распределение</div>
+    <div class="chart-wrap-sm"><canvas id="chartABC"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Ранги Welcomepro</div>
+    <div class="chart-wrap-sm"><canvas id="chartWelcome"></canvas></div>
+  </div>
+</div>
+<div class="charts-grid">
+  <div class="chart-card">
+    <div class="chart-title">Маржа/шт vs Объём продаж (пузырьковая)</div>
+    <div class="chart-wrap"><canvas id="chartBubble"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Выручка по объёму розлива</div>
+    <div class="chart-wrap"><canvas id="chartVol"></canvas></div>
+  </div>
+</div>
+
+<!-- TABLES TABS -->
+<div class="section-title">📋 Таблицы по сегментам</div>
+<div class="tabs">
+  <button class="tab active" onclick="showTab('all', this)">Все позиции<span class="tab-count">58</span></button>
+  <button class="tab" onclick="showTab('150', this)">Бокал 150 мл<span class="tab-count">33</span></button>
+  <button class="tab" onclick="showTab('750', this)">Бутылка 750 мл<span class="tab-count">22</span></button>
+  <button class="tab" onclick="showTab('other', this)">Прочее<span class="tab-count">3</span></button>
+  <button class="tab" onclick="showTab('gems', this)">⭐ Скрытые маржинальные<span class="tab-count">15</span></button>
+</div>
+
+<!-- TAB: ALL -->
+<div class="tab-section active" id="tab-all">
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr>
+  <th>#</th><th>Наименование</th><th>Категория</th><th class="num-right">Кол-во</th>
+  <th class="num-right">Выручка ₽</th><th class="num-right">Маржа ₽</th><th class="num-right">Маржа/шт</th>
+  <th class="num-right">Наценка %</th><th>Welcomepro</th><th>ABC</th>
+</tr></thead>
+<tbody id="tbody-all"></tbody>
+</table>
+</div>
+</div>
+
+<!-- TAB: 150ml -->
+<div class="tab-section" id="tab-150">
+<div class="vol-pills">
+  <span class="vol-pill active-vol">🥂 Бокал 150 мл</span>
+  <span class="vol-pill">33 позиции</span>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr>
+  <th>#</th><th>Наименование</th><th class="num-right">Кол-во</th>
+  <th class="num-right">Выручка ₽</th><th class="num-right">Маржа ₽</th><th class="num-right">Маржа/шт</th>
+  <th class="num-right">Наценка %</th><th>Welcomepro</th><th>ABC</th>
+</tr></thead>
+<tbody id="tbody-150"></tbody>
+</table>
+</div>
+</div>
+
+<!-- TAB: 750ml -->
+<div class="tab-section" id="tab-750">
+<div class="vol-pills">
+  <span class="vol-pill active-vol">🍾 Бутылка 750 мл</span>
+  <span class="vol-pill">22 позиции</span>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr>
+  <th>#</th><th>Наименование</th><th class="num-right">Кол-во</th>
+  <th class="num-right">Выручка ₽</th><th class="num-right">Маржа ₽</th><th class="num-right">Маржа/шт</th>
+  <th class="num-right">Наценка %</th><th>Welcomepro</th><th>ABC</th>
+</tr></thead>
+<tbody id="tbody-750"></tbody>
+</table>
+</div>
+</div>
+
+<!-- TAB: OTHER -->
+<div class="tab-section" id="tab-other">
+<div class="vol-pills">
+  <span class="vol-pill active-vol">🍶 Прочий объём</span>
+  <span class="vol-pill">3 позиции (300мл + кувшины)</span>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr>
+  <th>#</th><th>Наименование</th><th class="num-right">Кол-во</th>
+  <th class="num-right">Выручка ₽</th><th class="num-right">Маржа ₽</th><th class="num-right">Маржа/шт</th>
+  <th class="num-right">Наценка %</th><th>Welcomepro</th><th>ABC</th>
+</tr></thead>
+<tbody id="tbody-other"></tbody>
+</table>
+</div>
+</div>
+
+<!-- TAB: HIDDEN GEMS -->
+<div class="tab-section" id="tab-gems">
+<div class="section-title" style="margin-top:.5rem">💎 Скрытые маржинальные позиции (B и C с высокой маржой/шт)</div>
+<div id="gems-container"></div>
+</div>
+
+</div><!-- /page -->
+
+<script>
+// THEME TOGGLE
+(function(){
+  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+  let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+  r.setAttribute('data-theme',d);
+  t&&t.addEventListener('click',()=>{
+    d=d==='dark'?'light':'dark';
+    r.setAttribute('data-theme',d);
+  });
+})();
+
+// DATA
+const DATA = [
+  {n:"Вино Супра Саперави 150мл",vol:150,qty:205,rev:65738,margin:65738,mpu:321,markup:74,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Киндзмараули 150мл",vol:150,qty:140,rev:50540,margin:50540,mpu:361,markup:85,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Алазанская 150мл",vol:150,qty:133,rev:39900,margin:39900,mpu:300,markup:75,wp:"Золото",abc:"A"},
+  {n:"Вино Дерево жизни розовое 150мл",vol:150,qty:88,rev:26400,margin:26400,mpu:300,markup:83,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Мукузани 150мл",vol:150,qty:82,rev:26240,margin:26240,mpu:320,markup:78,wp:"Золото",abc:"A"},
+  {n:"Вино Асканели Киндзмараули 150мл",vol:150,qty:36,rev:18612,margin:18612,mpu:517,markup:129,wp:"Золото",abc:"B"},
+  {n:"Вино Джорджиан Роял Хванчкара 150мл",vol:150,qty:26,rev:15366,margin:15366,mpu:591,markup:148,wp:"Муравьи",abc:"B"},
+  {n:"Вино Асканели Саперави 150мл",vol:150,qty:21,rev:10458,margin:10458,mpu:498,markup:124,wp:"Муравьи",abc:"B"},
+  {n:"Вино Асканели Манави 150мл",vol:150,qty:15,rev:7380,margin:7380,mpu:492,markup:123,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Асканели Розе 150мл",vol:150,qty:2,rev:1140,margin:1140,mpu:570,markup:143,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Брют Игристое 150мл",vol:150,qty:8,rev:5336,margin:5336,mpu:667,markup:167,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Дерево жизни белое 150мл",vol:150,qty:57,rev:14250,margin:14250,mpu:250,markup:67,wp:"Золото",abc:"A"},
+  {n:"Вино Марани Ркацители 150мл",vol:150,qty:44,rev:13200,margin:13200,mpu:300,markup:75,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Твиши 150мл",vol:150,qty:38,rev:11400,margin:11400,mpu:300,markup:75,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Цинандали 150мл",vol:150,qty:35,rev:10500,margin:10500,mpu:300,markup:75,wp:"Золото",abc:"A"},
+  {n:"Вино Марани Алазанская долина белое 150мл",vol:150,qty:32,rev:9600,margin:9600,mpu:300,markup:75,wp:"Золото",abc:"B"},
+  {n:"Вино Марани Алазанская долина красное 150мл",vol:150,qty:29,rev:8700,margin:8700,mpu:300,markup:75,wp:"Золото",abc:"B"},
+  {n:"Вино Дерево жизни красное 150мл",vol:150,qty:26,rev:7800,margin:7800,mpu:300,markup:75,wp:"Муравьи",abc:"B"},
+  {n:"Вино Асканели Ркацители 150мл",vol:150,qty:22,rev:6600,margin:6600,mpu:300,markup:75,wp:"Муравьи",abc:"B"},
+  {n:"Вино Марани Саперави 150мл",vol:150,qty:19,rev:5700,margin:5700,mpu:300,markup:75,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Марани Цинандали 150мл",vol:150,qty:16,rev:4800,margin:4800,mpu:300,markup:75,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Марани Мукузани 150мл",vol:150,qty:13,rev:3900,margin:3900,mpu:300,markup:75,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Асканели Пиросмани 150мл",vol:150,qty:11,rev:3300,margin:3300,mpu:300,markup:75,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Асканели Мцване 150мл",vol:150,qty:9,rev:2700,margin:2700,mpu:300,markup:75,wp:"Паруса",abc:"C"},
+  {n:"Вино Марани Твиши 150мл",vol:150,qty:7,rev:2100,margin:2100,mpu:300,markup:75,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Телиани 150мл",vol:150,qty:6,rev:1800,margin:1800,mpu:300,markup:75,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Хванчкара 150мл",vol:150,qty:5,rev:2625,margin:2625,mpu:525,markup:131,wp:"Паруса",abc:"C"},
+  {n:"Вино Джорджиан Роял Цинандали 150мл",vol:150,qty:4,rev:2100,margin:2100,mpu:525,markup:131,wp:"Паруса",abc:"C"},
+  {n:"Вино Джорджиан Роял Саперави 150мл",vol:150,qty:4,rev:2000,margin:2000,mpu:500,markup:125,wp:"Паруса",abc:"C"},
+  {n:"Вино Вазиери Алазанская долина белое 150мл",vol:150,qty:3,rev:900,margin:900,mpu:300,markup:75,wp:"Паруса",abc:"C"},
+  {n:"Вино Вазиери Алазанская долина красное 150мл",vol:150,qty:3,rev:900,margin:900,mpu:300,markup:75,wp:"Паруса",abc:"C"},
+  {n:"Вино Марани Напареули 150мл",vol:150,qty:2,rev:600,margin:600,mpu:300,markup:75,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Ркацители Квеври 150мл",vol:150,qty:2,rev:1110,margin:1110,mpu:555,markup:139,wp:"Паруса",abc:"C"},
+  {n:"Вино Супра Саперави 750мл",vol:750,qty:60,rev:135600,margin:85514,mpu:1425,markup:171,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Киндзмараули 750мл",vol:750,qty:56,rev:127120,margin:84583,mpu:1510,markup:198,wp:"Золото",abc:"A"},
+  {n:"Вино Дерево жизни розовое 750мл",vol:750,qty:30,rev:82500,margin:53580,mpu:1786,markup:185,wp:"Золото",abc:"A"},
+  {n:"Вино Супра Алазанская 750мл",vol:750,qty:34,rev:68000,margin:40566,mpu:1193,markup:148,wp:"Золото",abc:"A"},
+  {n:"Вино Вазиери Пиросмани 750мл",vol:750,qty:22,rev:47740,margin:35994,mpu:1637,markup:207,wp:"Муравьи",abc:"B"},
+  {n:"Вино Шилдис Цинандали 750мл",vol:750,qty:15,rev:29850,margin:23550,mpu:1570,markup:174,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Асканели Саперави 750мл",vol:750,qty:11,rev:30250,margin:27181,mpu:2471,markup:248,wp:"Дирижабли",abc:"C"},
+  {n:"Вино Джорджиан Роял Пиросмани 750мл",vol:750,qty:8,rev:20800,margin:15360,mpu:1920,markup:283,wp:"Паруса",abc:"C"},
+  {n:"Вино Джорджиан Роял Хванчкара 750мл",vol:750,qty:6,rev:19500,margin:15090,mpu:2515,markup:344,wp:"Паруса",abc:"C"},
+  {n:"Вино Ахашени красное п/сл 750мл",vol:750,qty:2,rev:5980,margin:4214,mpu:2107,markup:239,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Киндзмараули 750мл",vol:750,qty:4,rev:14580,margin:10380,mpu:2595,markup:247,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Манави 750мл",vol:750,qty:2,rev:7900,margin:5228,mpu:2614,markup:195,wp:"Паруса",abc:"C"},
+  {n:"Вино игристое Асканели Брют 750мл",vol:750,qty:1,rev:5490,margin:3520,mpu:3520,markup:178,wp:"Паруса",abc:"C"},
+  {n:"Вино Марани Твиши 750мл",vol:750,qty:3,rev:7290,margin:5940,mpu:1980,markup:237,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Ркацители Квеври 750мл",vol:750,qty:4,rev:12280,margin:8880,mpu:2220,markup:259,wp:"Паруса",abc:"C"},
+  {n:"Вино Асканели Мукузани 750мл",vol:750,qty:3,rev:9870,margin:7227,mpu:2409,markup:273,wp:"Паруса",abc:"C"},
+  {n:"Вино Дерево жизни белое 750мл",vol:750,qty:12,rev:23400,margin:14040,mpu:1170,markup:150,wp:"Дирижабли",abc:"B"},
+  {n:"Вино Марани Ркацители 750мл",vol:750,qty:9,rev:16200,margin:10530,mpu:1170,markup:133,wp:"Дирижабли",abc:"B"},
+  {n:"Вино Супра Мукузани 750мл",vol:750,qty:7,rev:14280,margin:8820,mpu:1260,markup:162,wp:"Дирижабли",abc:"B"},
+  {n:"Вино Марани Саперави 750мл",vol:750,qty:5,rev:9750,margin:6500,mpu:1300,markup:200,wp:"Паруса",abc:"C"},
+  {n:"Вино Марани Напареули 750мл",vol:750,qty:4,rev:8800,margin:5720,mpu:1430,markup:187,wp:"Паруса",abc:"C"},
+  {n:"Вино Марани Алазанская долина красное 750мл",vol:750,qty:3,rev:5850,margin:3510,mpu:1170,markup:150,wp:"Паруса",abc:"C"},
+  {n:"Вино Супра Алазанская 300мл",vol:300,qty:18,rev:12600,margin:9000,mpu:500,markup:100,wp:"Дирижабли",abc:"B"},
+  {n:"Вино Супра белое кувшин 1л",vol:1000,qty:8,rev:12000,margin:8000,mpu:1000,markup:200,wp:"Дирижабли",abc:"B"},
+  {n:"Вино Супра красное кувшин 1л",vol:1000,qty:6,rev:9000,margin:6000,mpu:1000,markup:200,wp:"Паруса",abc:"C"}
+];
+
+const fmt = n => new Intl.NumberFormat('ru-RU').format(Math.round(n));
+const wpClass = w => ({"Золото":"w-zoloto","Муравьи":"w-muravi","Дирижабли":"w-diri","Паруса":"w-parusnik"}[w]||"w-other");
+const wpIcon = w => ({"Золото":"🥇","Муравьи":"🐜","Дирижабли":"🎈","Паруса":"⛵"}[w]||"•");
+
+function rowHtml(d, i, showCat=true){
+  const hi = d.margin >= 20000 ? 'row-top-margin' : (d.wp==='Золото'&&d.abc==='A'?'row-star':'');
+  const cat = showCat ? `<td><span class="vol-pill" style="padding:.1rem .5rem;font-size:.62rem">${d.vol===150?'🥂 150мл':d.vol===750?'🍾 750мл':'🍶 др.'}</span></td>` : '';
+  return `<tr class="${hi}">
+    <td style="color:var(--muted)">${i+1}</td>
+    <td class="name-col">${d.n}</td>
+    ${cat}
+    <td class="num-right">${fmt(d.qty)}</td>
+    <td class="num-right">${fmt(d.rev)} ₽</td>
+    <td class="num-right" style="font-weight:600;color:var(--gold)">${fmt(d.margin)} ₽</td>
+    <td class="num-right">${fmt(d.mpu)} ₽</td>
+    <td class="num-right">${d.markup}%</td>
+    <td><span class="welcome-badge ${wpClass(d.wp)}">${wpIcon(d.wp)} ${d.wp}</span></td>
+    <td><span class="rank rank-${d.abc}">${d.abc}</span></td>
+  </tr>`;
+}
+
+// Populate tables
+const sorted = [...DATA].sort((a,b)=>b.margin-a.margin);
+document.getElementById('tbody-all').innerHTML = sorted.map((d,i)=>rowHtml(d,i,true)).join('');
+
+const d150 = DATA.filter(d=>d.vol===150).sort((a,b)=>b.margin-a.margin);
+document.getElementById('tbody-150').innerHTML = d150.map((d,i)=>rowHtml(d,i,false)).join('');
+
+const d750 = DATA.filter(d=>d.vol===750).sort((a,b)=>b.margin-a.margin);
+document.getElementById('tbody-750').innerHTML = d750.map((d,i)=>rowHtml(d,i,false)).join('');
+
+const dOther = DATA.filter(d=>d.vol!==150&&d.vol!==750).sort((a,b)=>b.margin-a.margin);
+document.getElementById('tbody-other').innerHTML = dOther.map((d,i)=>rowHtml(d,i,false)).join('');
+
+// Hidden gems
+const gems = DATA.filter(d=>(d.abc==='B'||d.abc==='C')&&d.mpu>=490).sort((a,b)=>b.mpu-a.mpu);
+const gemsHtml = gems.map(d=>{
+  const pot10 = d.vol===150 ? d.mpu*30 : d.mpu*5;
+  const potLabel = d.vol===150 ? '+30 бокалов' : '+5 бутылок';
+  return `<div class="gem-card ${d.mpu>=2000?'priority':''}">
+    <div class="gem-header">
+      <div class="gem-name">${d.n}</div>
+      <span class="gem-rank ${d.abc==='C'?'c':''}">${d.abc}</span>
+    </div>
+    <div class="gem-margin">${fmt(d.mpu)} ₽/шт</div>
+    <div class="gem-meta">
+      <span>Продаж: <strong>${d.qty}</strong></span>
+      <span>Маржа итого: <strong>${fmt(d.margin)} ₽</strong></span>
+      <span>Наценка: <strong>${d.markup}%</strong></span>
+    </div>
+    <div class="gem-potential">🚀 Потенциал ${potLabel}: +${fmt(pot10)} ₽ маржи</div>
+  </div>`;
+}).join('');
+document.getElementById('gems-container').innerHTML = `<div class="gem-grid">${gemsHtml}</div>`;
+
+// TAB SWITCH
+function showTab(id, btn){
+  document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// CHARTS
+const isDark = () => document.documentElement.getAttribute('data-theme')==='dark';
+const cText = () => isDark() ? '#797876' : '#7a7974';
+const cGrid = () => isDark() ? '#262523' : '#dcd9d5';
+const cGold = '#e8af34';
+const cTeal = '#4f98a3';
+const cGreen = '#6daa45';
+const cOrange = '#fdab43';
+const cPurple = '#a86fdf';
+const cRed = '#d163a7';
+
+// Chart TOP10
+const top10 = [...DATA].sort((a,b)=>b.margin-a.margin).slice(0,10);
+new Chart(document.getElementById('chartTop10'),{
+  type:'bar',
+  data:{labels:top10.map(d=>d.n.replace('Вино ','').replace(' 750мл','🍾').replace(' 150мл','🥂')),
+    datasets:[{data:top10.map(d=>d.margin),backgroundColor:top10.map(d=>d.margin>=50000?cGold:d.margin>=20000?cTeal:cGreen),borderRadius:4}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>' '+fmt(v.raw)+' ₽'}}},
+    scales:{x:{ticks:{color:cText(),callback:v=>fmt(v)+'₽'},grid:{color:cGrid()}},
+             y:{ticks:{color:cText(),font:{size:10}},grid:{display:false}}}}
+});
+
+// Chart ABC
+const abcCounts = {A:DATA.filter(d=>d.abc==='A').length, B:DATA.filter(d=>d.abc==='B').length, C:DATA.filter(d=>d.abc==='C').length};
+new Chart(document.getElementById('chartABC'),{
+  type:'doughnut',
+  data:{labels:['A — лидеры','B — середняки','C — аутсайдеры'],
+    datasets:[{data:[abcCounts.A,abcCounts.B,abcCounts.C],backgroundColor:[cGreen,cTeal,cText()],borderWidth:0,hoverOffset:4}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{color:cText(),font:{size:10},padding:8}},
+             tooltip:{callbacks:{label:v=>` ${v.label}: ${v.raw} поз.`}}}}
+});
+
+// Chart Welcomepro
+const wpCounts = {}; DATA.forEach(d=>wpCounts[d.wp]=(wpCounts[d.wp]||0)+1);
+new Chart(document.getElementById('chartWelcome'),{
+  type:'doughnut',
+  data:{labels:Object.keys(wpCounts).map(k=>wpIcon(k)+' '+k),
+    datasets:[{data:Object.values(wpCounts),backgroundColor:[cGold,cTeal,cGreen,cOrange,cPurple],borderWidth:0,hoverOffset:4}]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{color:cText(),font:{size:10},padding:8}}}}
+});
+
+// Bubble chart
+const bubbleData = DATA.filter(d=>d.vol===750||d.vol===150).map(d=>({
+  x:d.qty, y:d.mpu, r:Math.sqrt(d.margin/800),
+  label:d.n.replace('Вино ',''), vol:d.vol, abc:d.abc
+}));
+new Chart(document.getElementById('chartBubble'),{
+  type:'bubble',
+  data:{datasets:[
+    {label:'🍾 750мл',data:bubbleData.filter(d=>d.vol===750),backgroundColor:cTeal+'99',borderColor:cTeal},
+    {label:'🥂 150мл',data:bubbleData.filter(d=>d.vol===150),backgroundColor:cGold+'99',borderColor:cGold}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:cText()}},
+             tooltip:{callbacks:{label:v=>`${v.raw.label}: ${fmt(v.raw.x)} шт, ${fmt(v.raw.y)} ₽/шт`}}},
+    scales:{x:{title:{display:true,text:'Объём продаж (шт)',color:cText()},ticks:{color:cText()},grid:{color:cGrid()}},
+             y:{title:{display:true,text:'Маржа/шт (₽)',color:cText()},ticks:{color:cText()},grid:{color:cGrid()}}}}
+});
+
+// Chart by volume
+const vol150Rev = DATA.filter(d=>d.vol===150).reduce((s,d)=>s+d.rev,0);
+const vol750Rev = DATA.filter(d=>d.vol===750).reduce((s,d)=>s+d.rev,0);
+const volOtherRev = DATA.filter(d=>d.vol!==150&&d.vol!==750).reduce((s,d)=>s+d.rev,0);
+const vol150Mar = DATA.filter(d=>d.vol===150).reduce((s,d)=>s+d.margin,0);
+const vol750Mar = DATA.filter(d=>d.vol===750).reduce((s,d)=>s+d.margin,0);
+const volOtherMar = DATA.filter(d=>d.vol!==150&&d.vol!==750).reduce((s,d)=>s+d.margin,0);
+new Chart(document.getElementById('chartVol'),{
+  type:'bar',
+  data:{labels:['🥂 Бокал 150мл','🍾 Бутылка 750мл','🍶 Прочее'],
+    datasets:[
+      {label:'Выручка',data:[vol150Rev,vol750Rev,volOtherRev],backgroundColor:[cGold+'bb',cTeal+'bb',cGreen+'bb'],borderRadius:4},
+      {label:'Маржа',data:[vol150Mar,vol750Mar,volOtherMar],backgroundColor:[cGold,cTeal,cGreen],borderRadius:4}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:cText()}}},
+    scales:{x:{ticks:{color:cText()},grid:{display:false}},
+             y:{ticks:{color:cText(),callback:v=>fmt(v)},grid:{color:cGrid()}}}}
+});
+</script>
+</body>
+</html>
